@@ -13,10 +13,7 @@ Include [`ansi_modifier`][ansi_modifier] as a dependency
  in your `pubspec.yaml` file.
 
 Use the String extension functions [`modify`][modify] to add new modifiers or
-to replace existing ones. The replacement method can be adjusted by setting the
-optional argument `method`.
-
-Use the function [`removeAnsi`][removeAnsi] to remove
+to replace existing ones. Use the function [`removeAnsi`][removeAnsi] to remove
 all Ansi modifier from a string.
 
 ```Dart
