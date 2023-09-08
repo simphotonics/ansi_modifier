@@ -55,51 +55,23 @@ Runnig the program above:
 ```Console
 $ dart example/bin/color_example.dart
 ```
-produces the following terminal output:
+produces the following output on a Visual Studio Code terminal:
 
 ![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.png)
-
-A typical console output is shown above. The following colour-coding is used:
-* The labels of synchronous benchmarks and groups are printed using <span style="color: #28B5D7">*cyan*</span>
-foreground.
-* The labels of asynchronous benchmarks and groups are
-printed using <span style="color:#AE5AAE">*magenta*</span> foreground.
-* The histogram block containing the *mean*
-is printed using <span style="color:#11A874">*green*</span> foreground.
-* The block containg the *median* is printed
-using <span style="color:#2370C4">*blue*</span> foreground.
-* If the same block contains mean and median it is printed
-using <span style="color:#28B5D7">*cyan*</span> foreground.
-* Error are printed using <span style="color:#CB605E"> *red* </span> foreground.
 
 
 ## Tips and Tricks
 
-The scores reported by [`benchmark`][benchmark] and
-[`asyncBenchmark`][asyncBenchmark]
-refer to a *single* run of the benchmarked function.
+* The String extension method [`modify`][modify] supports different
+replacement modes that can be adjusted using the optional argument `method`.
 
-Benchmarks do *not* need to be enclosed by a group.
-
-A benchmark group may *not* contain another benchmark group.
-
-By default, [`benchmark`][benchmark] and
-[`asyncBenchmark`][asyncBenchmark] report score statistics. In order to generate
-the report provided by [`benchmark_harness`][benchmark_harness] use the
-optional argument `emitStats: false`.
-
-Color output can be switched off by using the option: `--isMonochrome` when
-calling the benchmark runner. When executing a single benchmark file the
-corresponding option is `--define=isMonochrome=true`.
-
-When running **asynchronous** benchmarks, it is recommended
-to await the completion of the benchmark functions.
-Otherwise, the scores might not be printed in the expected order making it
-more difficult to read (grouped) benchmark results.
+* Ansi codes can be combined using the addition operator `Anis.red + Ansi.bold`,
+or by using the factory constructor `Ansi.combine`.
 
 ## Features and bugs
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+If some Ansi modifiers are missing please file an enhancement request
+at the [issue tracker][tracker].
 
 [tracker]: https://github.com/simphotonics/ansi_modifier/issues
 

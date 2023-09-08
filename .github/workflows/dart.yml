@@ -48,5 +48,5 @@ jobs:
         run: dart test
 
       # Run example
-      # - name: Run example
-      #   run: dart example/bin/directed_graph_example.dart
+      - name: Run example
+        run: dart example/bin/color_example.dart
