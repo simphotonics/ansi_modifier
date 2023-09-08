@@ -4,62 +4,67 @@
 ## Introduction
 
 The package provides an enhanced enum holding ANSI modifier codes and
-String extension methods for adding, replacing, and removing ANSI modifiers.
+extensions for preparing string for output to ANSI compliant consoles.
 
 ## Usage
 
 Include [`ansi_modifier`][ansi_modifier] as a dependency
  in your `pubspec.yaml` file.
 
-Modify strings by adding, replacing, or clearing existing ANSI modifiers using
-the String
-extension functions [`modify()`][modify()] and [`clearAnsi()`][clearAnsi()].
+Modify strings by adding, replacing, or clearing existing ANSI modifiers.
 
-```Dart
-import 'package:ansi_modifier/src/ansi.dart';
+  ```Dart
+  // ignore_for_file: unused_local_variable
+  import 'dart:collection';
 
-void main(List<String> args) {
-  /// Create colorized strings.
-  print('Create colorized strings:'.modify(Ansi.bold));
-  final blue = 'A string.'.modify(Ansi.blue);
-  print('A blue string:');
-  print(blue);
+  import 'package:benchmark_runner/benchmark_runner.dart';
 
-  print('\nA green string:');
-  final green = 'Another string'.modify(Ansi.green);
-  print(green);
+  void main(List<String> args) async {
+    final originalList = <int>[for (var i = 0; i < 1000; ++i) i];
 
-  print('\nA blue green string:');
-  final blueGreen = blue + ' ' + green;
-  print(blueGreen);
+    await asyncGroup('Async List:', () async {
+      await asyncBenchmark('construct list of Future<int>', () async {
+        final list = Future.value([for (var i = 0; i < 100; ++i) i]);
+      }, emitStats: false);
 
-  /// Modify a previously colorized string.
-  print('\nModify previously colorized strings:'.modify(Ansi.bold));
+      await asyncBenchmark('construct list of Future<int>, report stats',
+          () async {
+        final list = Future.value([for (var i = 0; i < 100; ++i) i]);
+      }, emitStats: true);
+    });
 
-  /// Replace first modifier:
-  final yellowGreen = blueGreen.modify(Ansi.yellow, method: Replace.first);
-  print('A yellow green string:');
-  print(yellowGreen);
+    group('List:', () {
+      benchmark('construct list', () {
+        var list = <int>[for (var i = 0; i < 1000; ++i) i];
+      });
 
-  /// Replace all modifiers.
-  final magenta =
-      yellowGreen.modify(Ansi.magenta, method: Replace.clearPrevious);
-  print('\nA magenta string:');
-  print(magenta);
+      benchmark('construct list', () {
+        var list = <int>[for (var i = 0; i < 1000; ++i) i];
+      }, emitStats: false);
 
-  /// Strip all Ansi modifiers.
-  print('\nA standard string:');
-  print(magenta.stripAnsi());
-}
-```
+      benchmark('construct list view', () {
+        final listView = UnmodifiableListView(originalList);
+      });
+    });
+  }
 
-Runnig the program above:
+  ```
+
+Run a single benchmark file as an executable:
 ```Console
-$ dart example/bin/color_example.dart
+$ dart benchmark/list_benchmark.dart
 ```
-produces the following terminal output:
 
-![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.png)
+Run several benchmark files (ending with `_benchmark.dart`)
+by calling the benchmark_runner and specifying a directory.
+The directory name defaults to `benchmark`:
+
+```Console
+$ dart run benchmark_runner
+```
+
+
+![Console Output](https://raw.githubusercontent.com/simphotonics/benchmark_runner/main/images/console_output.png)
 
 A typical console output is shown above. The following colour-coding is used:
 * The labels of synchronous benchmarks and groups are printed using <span style="color: #28B5D7">*cyan*</span>

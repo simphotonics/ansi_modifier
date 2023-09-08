@@ -1,0 +1,17 @@
+name: ansi_modifier
+
+description: Modify strings by adding, clearing, and replacing ANSI modifiers.
+
+version: 0.0.1
+
+homepage: https://github.com/simphotonics/ansi_modifier
+
+
+environment:
+  sdk: '^3.0.0'
+
+dependencies:
+ 
+dev_dependencies:
+  lints: ^2.1.1
+  test: ^1.24.6
