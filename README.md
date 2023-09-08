@@ -1,5 +1,5 @@
 # Ansi Modifier
-
+[![Dart](https://github.com/simphotonics/ansi_modifier/actions/workflows/dart.yml/badge.svg)](https://github.com/simphotonics/ansi_modifier/actions/workflows/dart.yml)
 
 ## Introduction
 

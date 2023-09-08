@@ -1,4 +1,5 @@
 # Ansi Modifier - Example
+[![Dart](https://github.com/simphotonics/ansi_modifier/actions/workflows/dart.yml/badge.svg)](https://github.com/simphotonics/ansi_modifier/actions/workflows/dart.yml)
 
 ## Usage
 The example below shows how the to add, modify, and clear Ansi modifiers.
