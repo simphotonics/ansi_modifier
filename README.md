@@ -4,15 +4,15 @@
 ## Introduction
 
 The package provides the class [`Ansi`][Ansi] holding ANSI modifier codes and
-String extension methods for adding, replacing, and removing ANSI modifiers.
-
+the String extension methods [`modify`][modify] and [`removeAnsi`][removeAnsi]
+for adding, replacing, and removing ANSI modifiers.
 
 ## Usage
 
 Include [`ansi_modifier`][ansi_modifier] as a dependency
  in your `pubspec.yaml` file.
 
-Use the String extension functions [`modify`][modify] to add new modifiers or
+Use the String extension function [`modify`][modify] to add new modifiers or
 to replace existing ones. Use the function [`removeAnsi`][removeAnsi] to remove
 all Ansi modifier from a string.
 
