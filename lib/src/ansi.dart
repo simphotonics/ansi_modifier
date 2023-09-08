@@ -27,105 +27,114 @@ enum Replace {
   clearPrevious,
 }
 
-/// Enumeration representing Ansi modifiers.
+/// Class representing Ansi modifiers.
 ///
 /// Used to print custom fonts and colorized output to Ansi compliant terminals.
-class Ansi {
+final class Ansi {
   /// Ansi modifier: Reset to default.
-  static final reset = Ansi('0');
+  static final reset = Ansi._('0');
 
   /// Ansi modifier bold forground text.
-  static final bold = Ansi('1');
+  static final bold = Ansi._('1');
 
   /// Ansi modifier italic foreground text.
-  static final italic = Ansi('3');
+  static final italic = Ansi._('3');
 
   /// Ansi mofifiers underlined foreground text.
-  static final underline = Ansi('4');
+  static final underline = Ansi._('4');
 
   /// Ansi modifier crossed out foreground text.
-  static final crossedOut = Ansi('9');
+  static final crossedOut = Ansi._('9');
 
   /// Ansi color modifier: black foreground.
-  static final black = Ansi('30');
+  static final black = Ansi._('30');
 
   /// Ansi color modifier: red foreground.
-  static final red = Ansi('31');
+  static final red = Ansi._('31');
 
   /// Ansi color modifier: green foreground.
-  static final green = Ansi('32');
+  static final green = Ansi._('32');
 
   /// Ansi color modifier: yellow foreground.
-  static final yellow = Ansi('33');
+  static final yellow = Ansi._('33');
 
   /// Ansi color modifier: blue foreground.
-  static final blue = Ansi('34');
+  static final blue = Ansi._('34');
 
   /// Ansi color modifier: magenta foreground.
-  static final magenta = Ansi('35');
+  static final magenta = Ansi._('35');
 
   /// Ansi color modifier: magenta bold foreground.
-  static final magentaBold = Ansi('1;35');
+  static final magentaBold = Ansi._('1;35');
 
   /// Ansi color modifier: cyan foreground.
-  static final cyan = Ansi('36');
+  static final cyan = Ansi._('36');
 
   /// Ansi color modifier: cyan bold text.
-  static final cyanBold = Ansi('1;36');
+  static final cyanBold = Ansi._('1;36');
 
   /// Ansi color modifier: grey foreground
-  static final grey = Ansi('2;37');
+  static final grey = Ansi._('2;37');
 
   /// Ansi color modifier: black background
-  static final blackBg = Ansi('40');
+  static final blackBg = Ansi._('40');
 
   /// Ansi color modifier: red backgroound
-  static final redBg = Ansi('41');
+  static final redBg = Ansi._('41');
 
   /// Ansi color modifier: green background
-  static final greenBg = Ansi('42');
+  static final greenBg = Ansi._('42');
 
   /// Ansi color modifier: yellow background
-  static final yellowBg = Ansi('43');
+  static final yellowBg = Ansi._('43');
 
   /// Ansi color modifier: blue background
-  static final blueBg = Ansi('44');
+  static final blueBg = Ansi._('44');
 
   /// Ansi color modifier: magenta background
-  static final magentaBg = Ansi('45');
+  static final magentaBg = Ansi._('45');
 
   /// Ansi color modifier: cyan background
-  static final cyanBg = Ansi('46');
+  static final cyanBg = Ansi._('46');
 
   /// Ansi color modifier: white background
-  static final whiteBg = Ansi('47');
+  static final whiteBg = Ansi._('47');
 
   /// Ansi color modifier: bright red foreground.
-  static final redBright = Ansi('91');
+  static final redBright = Ansi._('91');
 
   /// Ansi color modifier: bright green foreground.
-  static final greenBright = Ansi('92');
+  static final greenBright = Ansi._('92');
 
   /// Ansi color modifier: bright yellow foreground.
-  static final yellowBright = Ansi('93');
+  static final yellowBright = Ansi._('93');
 
   /// Ansi color modifier: bright blue foreground.
-  static final blueBright = Ansi('94');
+  static final blueBright = Ansi._('94');
 
   /// Ansi color modifier: bright magenta foreground.
-  static final magentaBright = Ansi('95');
+  static final magentaBright = Ansi._('95');
 
   /// Ansi color modifier: grey bold foreground
-  static final greyBold = Ansi('1;90');
+  static final greyBold = Ansi._('1;90');
 
   /// Ansi color modifier: white bold foreground
-  static final whiteBold = Ansi('1;97');
+  static final whiteBold = Ansi._('1;97');
 
-  const Ansi(this.bareCode) : code = escLeft + bareCode + escRight;
+  const Ansi._(this.bareCode) : code = escLeft + bareCode + escRight;
 
   /// Factory constructor combining several Ansi modifiers.
   factory Ansi.combine(Set<Ansi> modifiers) {
-    return Ansi(modifiers.map<String>((element) => element.bareCode).join(';'));
+    // Extract modifiers:
+    final bareCodes = (modifiers
+            .map<String>((element) => element.bareCode)
+            .join(';')
+            .split(';')
+          ..sort())
+        .toSet()
+        .join(';');
+
+    return Ansi._(bareCodes);
   }
 
   /// Returns the escaped Ansi code.
@@ -142,11 +151,21 @@ class Ansi {
 
   /// Creates a new Ansi object by joining the bare Ansi codes separated by a
   /// semicolon character.
-  Ansi operator +(Ansi other) => this == other
-      ? this
-      : Ansi(
-          bareCode + ';' + other.bareCode,
-        );
+  Ansi operator +(Ansi other) =>
+      this == other ? this : Ansi.combine({this, other});
+
+  /// Returns `true` if [other] is of type [Ansi] and
+  /// `bareCode == other.bareCode`. Returns `false` otherwise.
+  bool operator ==(Object other) {
+    if (other is Ansi) {
+      return bareCode == other.bareCode;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => bareCode.hashCode;
 
   @override
   String toString() {

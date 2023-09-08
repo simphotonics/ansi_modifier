@@ -3,53 +3,51 @@
 
 ## Introduction
 
-The package provides an enhanced enum holding ANSI modifier codes and
+The package provides the class [`Ansi`][Ansi] holding ANSI modifier codes and
 String extension methods for adding, replacing, and removing ANSI modifiers.
+
 
 ## Usage
 
 Include [`ansi_modifier`][ansi_modifier] as a dependency
  in your `pubspec.yaml` file.
 
-Modify strings by adding, replacing, or clearing existing ANSI modifiers using
-the String
-extension functions [`modify()`][modify()] and [`clearAnsi()`][clearAnsi()].
+Use the String extension functions [`modify`][modify] to add new modifiers or
+to replace existing ones. The replacement method can be adjusted by setting the
+optional argument `method`.
+
+Use the function [`stripAnsi`][stripAnsi] to remove
+all Ansi modifier from a string.
 
 ```Dart
 import 'package:ansi_modifier/src/ansi.dart';
 
 void main(List<String> args) {
   /// Create colorized strings.
-  print('Create colorized strings:'.modify(Ansi.bold));
-  final blue = 'A string.'.modify(Ansi.blue);
-  print('A blue string:');
-  print(blue);
-
-  print('\nA green string:');
-  final green = 'Another string'.modify(Ansi.green);
-  print(green);
-
-  print('\nA blue green string:');
-  final blueGreen = blue + ' ' + green;
-  print(blueGreen);
+  print('Create colorized strings:');
+  final blue = 'blueberry'.modify(Ansi.blue + Ansi.italic);
+  final green = 'green apple'.modify(Ansi.green);
+  final blueGreen = blue +
+      ' and ' +
+      green.modify(
+        Ansi.bold,
+        method: Replace.none,
+      );
+  print('$blue, $green, $blueGreen');
 
   /// Modify a previously colorized string.
-  print('\nModify previously colorized strings:'.modify(Ansi.bold));
+  print('\nModify previously colorized strings:');
 
   /// Replace first modifier:
-  final yellowGreen = blueGreen.modify(Ansi.yellow, method: Replace.first);
-  print('A yellow green string:');
-  print(yellowGreen);
+  final yellowGreen = blueGreen.modify(Ansi.yellow + Ansi.bold + Ansi.underline,
+      method: Replace.first);
 
   /// Replace all modifiers.
   final magenta =
       yellowGreen.modify(Ansi.magenta, method: Replace.clearPrevious);
-  print('\nA magenta string:');
-  print(magenta);
 
   /// Strip all Ansi modifiers.
-  print('\nA standard string:');
-  print(magenta.stripAnsi());
+  print('$yellowGreen, $magenta, ${magenta.stripAnsi()}');
 }
 ```
 
@@ -103,16 +101,12 @@ more difficult to read (grouped) benchmark results.
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: https://github.com/simphotonics/benchmark_runner/issues
+[tracker]: https://github.com/simphotonics/ansi_modifier/issues
 
-[benchmark_harness]: https://pub.dev/packages/benchmark_harness
+[ansi_modifier]: https://pub.dev/packages/ansi_modifier
 
-[benchmark_runner]: https://pub.dev/packages/benchmark_runner
+[Ansi]: https://pub.dev/packages/ansi_modifier/doc/api/ansi_modifier/Ansi-class.html
 
-[asyncBenchmark]: https://pub.dev/documentation/benchmark_runner/doc/api/benchmark_runner/asyncBenchmark.html
+[modify]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/modify.html
 
-[asyncGroup]: https://pub.dev/documentation/benchmark_runner/doc/api/benchmark_runner/asyncGroup.html
-
-[benchmark]: https://pub.dev/documentation/benchmark_runner/doc/api/benchmark_runner/benchmark.html
-
-[group]: https://pub.dev/documentation/benchmark_runner/doc/api/benchmark_runner/group.html
+[clearAnsi]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/asyncGroup.html
