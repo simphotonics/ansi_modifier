@@ -38,7 +38,7 @@ void main(List<String> args) {
 
 ## Features and bugs
 
-If some Ansi modifiers are missing please file an enhancement request
+If some Ansi modifiers are missing please file a enhancement request
 at the [issue tracker][tracker].
 
 [tracker]: https://github.com/simphotonics/ansi_modifier/issues
