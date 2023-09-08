@@ -211,7 +211,7 @@ extension AnsiModifier on String {
         (AnsiOutput.enabled, Replace.none) =>
           (modifier.code + this)._appendReset,
         (AnsiOutput.enabled, Replace.clearPrevious) =>
-          modifier.code + stripAnsi() + resetSeq,
+          modifier.code + removeAnsi() + resetSeq,
       };
 
   /// Returns the string unmofified if `this` ends with [resetSeq]. Otherwise
@@ -222,7 +222,7 @@ extension AnsiModifier on String {
   static final matchAnsi = RegExp(r'\u001B\[(\d+|;)+m', unicode: true);
 
   /// Removes all Ansi modifiers and returns the resulting string.
-  String stripAnsi() {
+  String removeAnsi() {
     return isEmpty ? this : replaceAll(matchAnsi, '');
   }
 }

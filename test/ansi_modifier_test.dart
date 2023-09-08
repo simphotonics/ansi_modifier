@@ -22,11 +22,11 @@ void main() {
     final redMoon = moon.modify(Ansi.red);
     final greenPlanet = planet.modify(Ansi.green);
     test('simple string', () {
-      expect(redMoon.stripAnsi(), moon);
-      expect((' ' + redMoon).stripAnsi(), ' ' + moon);
+      expect(redMoon.removeAnsi(), moon);
+      expect((' ' + redMoon).removeAnsi(), ' ' + moon);
     });
     test('complex string', () {
-      expect((redMoon + greenPlanet).stripAnsi(), moon + planet);
+      expect((redMoon + greenPlanet).removeAnsi(), moon + planet);
     });
   });
   group('Replace:', () {

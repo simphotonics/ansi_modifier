@@ -16,7 +16,7 @@ Use the String extension functions [`modify`][modify] to add new modifiers or
 to replace existing ones. The replacement method can be adjusted by setting the
 optional argument `method`.
 
-Use the function [`stripAnsi`][stripAnsi] to remove
+Use the function [`removeAnsi`][removeAnsi] to remove
 all Ansi modifier from a string.
 
 ```Dart
@@ -47,7 +47,7 @@ void main(List<String> args) {
       yellowGreen.modify(Ansi.magenta, method: Replace.clearPrevious);
 
   /// Strip all Ansi modifiers.
-  print('$yellowGreen, $magenta, ${magenta.stripAnsi()}');
+  print('$yellowGreen, $magenta, ${magenta.removeAnsi()}');
 }
 ```
 
@@ -81,4 +81,4 @@ at the [issue tracker][tracker].
 
 [modify]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/modify.html
 
-[clearAnsi]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/asyncGroup.html
+[removeAnsi]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/removeAnsi.html

@@ -25,5 +25,5 @@ void main(List<String> args) {
       yellowGreen.modify(Ansi.magenta, method: Replace.clearPrevious);
 
   /// Strip all Ansi modifiers.
-  print('$yellowGreen, $magenta, ${magenta.stripAnsi()}');
+  print('$yellowGreen, $magenta, ${magenta.removeAnsi()}');
 }
