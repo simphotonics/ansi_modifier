@@ -1,5 +1,7 @@
 /// Left Ansi escape sequence
-const _escLeft = '\u001B[';
+const escLeft = '\u001B[';
+
+const escRight = 'm';
 
 /// Ansi reset sequence
 const resetSeq = '\u001B[0m';
@@ -28,78 +30,123 @@ enum Replace {
 /// Enumeration representing Ansi modifiers.
 ///
 /// Used to print custom fonts and colorized output to Ansi compliant terminals.
-enum Ansi {
+class Ansi {
   /// Ansi modifier: Reset to default.
-  reset(resetSeq),
-
-  /// Ansi color modifier: red foreground.
-  red('\u001B[31m'),
-
-  /// Ansi color modifier: bright red foreground.
-  redBright('\u001B[91m'),
-
-  /// Ansi color modifier: green foreground.
-  green('\u001B[32m'),
-
-  /// Ansi color modifier: bright green foreground.
-  greenBright('\u001B[92m'),
-
-  /// Ansi color modifier: yellow foreground.
-  yellow('\u001B[33m'),
-
-  /// Ansi color modifier: bright yellow foreground.
-  yellowBright('\u001B[93m'),
-
-  /// Ansi color modifier: blue foreground.
-  blue('\u001B[34m'),
-
-  /// Ansi color modifier: bright blue foreground.
-  blueBright('\u001B[94m'),
-
-  /// Ansi color modifier: magenta foreground.
-  magenta('\u001B[35m'),
-
-  /// Ansi color modifier: magenta foreground.
-  magentaBright('\u001B[95m'),
-
-  /// Ansi color modifier: magenta bold foreground.
-  magentaBold('\u001B[1;35m'),
-
-  /// Ansi color modifier: cyan foreground.
-  cyan('\u001B[36m'),
-
-  /// Ansi color modifier: cyan bold text.
-  cyanBold('\u001B[1;36m'),
-
-  /// Ansi color modifier: grey foreground
-  grey('\u001B[2;37m'),
-
-  /// Ansi color modifier: grey bold foreground
-  greyBold('\u001B[1;90m'),
-
-  /// Ansi color modifier: white bold foreground
-  whiteBold('\u001B[1;97m'),
+  static final reset = Ansi('0');
 
   /// Ansi modifier bold forground text.
-  bold('\u001B[1m'),
+  static final bold = Ansi('1');
 
   /// Ansi modifier italic foreground text.
-  italic('\u001B[3m'),
+  static final italic = Ansi('3');
+
+  /// Ansi mofifiers underlined foreground text.
+  static final underline = Ansi('4');
 
   /// Ansi modifier crossed out foreground text.
-  crossedOut('\u001B[9m');
+  static final crossedOut = Ansi('9');
 
-  const Ansi(this.code);
+  /// Ansi color modifier: black foreground.
+  static final black = Ansi('30');
 
-  /// Returns the Ansi code.
+  /// Ansi color modifier: red foreground.
+  static final red = Ansi('31');
+
+  /// Ansi color modifier: green foreground.
+  static final green = Ansi('32');
+
+  /// Ansi color modifier: yellow foreground.
+  static final yellow = Ansi('33');
+
+  /// Ansi color modifier: blue foreground.
+  static final blue = Ansi('34');
+
+  /// Ansi color modifier: magenta foreground.
+  static final magenta = Ansi('35');
+
+  /// Ansi color modifier: magenta bold foreground.
+  static final magentaBold = Ansi('1;35');
+
+  /// Ansi color modifier: cyan foreground.
+  static final cyan = Ansi('36');
+
+  /// Ansi color modifier: cyan bold text.
+  static final cyanBold = Ansi('1;36');
+
+  /// Ansi color modifier: grey foreground
+  static final grey = Ansi('2;37');
+
+  /// Ansi color modifier: black background
+  static final blackBg = Ansi('40');
+
+  /// Ansi color modifier: red backgroound
+  static final redBg = Ansi('41');
+
+  /// Ansi color modifier: green background
+  static final greenBg = Ansi('42');
+
+  /// Ansi color modifier: yellow background
+  static final yellowBg = Ansi('43');
+
+  /// Ansi color modifier: blue background
+  static final blueBg = Ansi('44');
+
+  /// Ansi color modifier: magenta background
+  static final magentaBg = Ansi('45');
+
+  /// Ansi color modifier: cyan background
+  static final cyanBg = Ansi('46');
+
+  /// Ansi color modifier: white background
+  static final whiteBg = Ansi('47');
+
+  /// Ansi color modifier: bright red foreground.
+  static final redBright = Ansi('91');
+
+  /// Ansi color modifier: bright green foreground.
+  static final greenBright = Ansi('92');
+
+  /// Ansi color modifier: bright yellow foreground.
+  static final yellowBright = Ansi('93');
+
+  /// Ansi color modifier: bright blue foreground.
+  static final blueBright = Ansi('94');
+
+  /// Ansi color modifier: bright magenta foreground.
+  static final magentaBright = Ansi('95');
+
+  /// Ansi color modifier: grey bold foreground
+  static final greyBold = Ansi('1;90');
+
+  /// Ansi color modifier: white bold foreground
+  static final whiteBold = Ansi('1;97');
+
+  const Ansi(this.bareCode) : code = escLeft + bareCode + escRight;
+
+  /// Factory constructor combining several Ansi modifiers.
+  factory Ansi.combine(Set<Ansi> modifiers) {
+    return Ansi(modifiers.map<String>((element) => element.bareCode).join(';'));
+  }
+
+  /// Returns the escaped Ansi code.
+  /// ```
+  /// print(Ansi.red.code); // Prints \u001B[31m
+  /// ```
   final String code;
 
-  /// Returns a set of all registered Ansi modifiers.
-  static final Set<String> modifiers = Ansi.values
-      .map(
-        (e) => e.code,
-      )
-      .toSet();
+  /// Returns the bare Ansi code.
+  /// ```
+  /// print(Ansi.red.bareCode); // Prints 31
+  /// ```
+  final String bareCode;
+
+  /// Creates a new Ansi object by joining the bare Ansi codes separated by a
+  /// semicolon character.
+  Ansi operator +(Ansi other) => this == other
+      ? this
+      : Ansi(
+          bareCode + ';' + other.bareCode,
+        );
 
   @override
   String toString() {
@@ -136,7 +183,7 @@ extension AnsiModifier on String {
         (AnsiOutput.disabled, _) => this,
         (AnsiOutput.enabled, Replace.first) =>
           replaceFirst(matchAnsi, modifier.code),
-        (AnsiOutput.enabled, Replace.starting) => startsWith(_escLeft)
+        (AnsiOutput.enabled, Replace.starting) => startsWith(escLeft)
             ? replaceFirst(
                 matchAnsi,
                 modifier.code,
