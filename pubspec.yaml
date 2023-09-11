@@ -3,7 +3,7 @@ name: ansi_modifier
 description: Style strings for terminal output by
         adding, replacing, or removing ANSI modifiers.
 
-version: 0.1.0
+version: 0.1.1
 
 homepage: https://github.com/simphotonics/ansi_modifier
 

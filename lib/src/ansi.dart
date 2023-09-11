@@ -34,8 +34,11 @@ final class Ansi {
   /// Ansi modifier: Reset to default.
   static final reset = Ansi._('0');
 
-  /// Ansi modifier bold forground text.
+  /// Ansi modifier bold foreground text.
   static final bold = Ansi._('1');
+
+  /// Ansi modifier faint foreground text.
+  static final faint = Ansi._('2');
 
   /// Ansi modifier italic foreground text.
   static final italic = Ansi._('3');
@@ -45,6 +48,12 @@ final class Ansi {
 
   /// Ansi modifier crossed out foreground text.
   static final crossedOut = Ansi._('9');
+
+  /// Ansi modifier default font.
+  static final defaultFont = Ansi._('10');
+
+  /// Ansi modifier default intensity.
+  static final defaultIntensity = Ansi._('22');
 
   /// Ansi color modifier: black foreground.
   static final black = Ansi._('30');
@@ -76,6 +85,9 @@ final class Ansi {
   /// Ansi color modifier: grey foreground
   static final grey = Ansi._('2;37');
 
+  /// Ansi color modifier: default foreground colour.
+  static final defaultFg = Ansi._('39');
+
   /// Ansi color modifier: black background
   static final blackBg = Ansi._('40');
 
@@ -99,6 +111,9 @@ final class Ansi {
 
   /// Ansi color modifier: white background
   static final whiteBg = Ansi._('47');
+
+  /// Ansi color modifier: default background colour.
+  static final defaultBg = Ansi._('39');
 
   /// Ansi color modifier: bright red foreground.
   static final redBright = Ansi._('91');
