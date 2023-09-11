@@ -28,7 +28,7 @@ echo -e "${PURPLE}=== Checking Source Code Formatting${RESET} $PWD..."
 echo
 # Overwrite files with formatted content: -w
 # Dry run: -n
-dart format lib test example benchmark
+dart format lib test example
 
 # Analyze dart files
 echo
