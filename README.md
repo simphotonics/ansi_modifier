@@ -52,7 +52,7 @@ Runnig the program above:
 ```Console
 $ dart example/bin/color_example.dart
 ```
-produces the following output on a Visual Studio Code terminal:
+produces the following output:
 
 ![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.png)
 
