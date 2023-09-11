@@ -65,6 +65,13 @@ replacement modes that can be adjusted using the optional argument `method`.
 * Ansi codes can be combined using the addition operator `Anis.red + Ansi.bold`,
 or by using the factory constructor `Ansi.combine`.
 
+* Ansi output can be globally disabled by setting
+`Ansi.status = AnsiOutput.disabled` or by using the option:
+  ```Console
+  $ dart --define=isMonochrome=true example/bin/color_example.dart
+
+  ```
+
 ## Features and bugs
 
 If some Ansi modifiers are missing please file an enhancement request

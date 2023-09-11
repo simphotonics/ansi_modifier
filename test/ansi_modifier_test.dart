@@ -29,6 +29,15 @@ void main() {
       expect((redMoon + greenPlanet).clearStyle(), moon + planet);
     });
   });
+  group('Reset:', () {
+    test('replace starting', () {
+      expect(
+          ('The ' + 'fox'.style(Ansi.bold)).style(Ansi.reset),
+          startsWith(
+            Ansi.reset.code,
+          ));
+    });
+  });
   group('Replace:', () {
     test('starting', () {
       expect(
@@ -73,6 +82,18 @@ void main() {
         blueRisingMoon.style(Ansi.reset, method: Replace.clearPrevious),
         'rising moon',
       );
+    });
+  });
+  group('Ansi output', () {
+    test('enabled', () {
+      Ansi.status = AnsiOutput.enabled;
+      expect('string'.style(Ansi.bold), startsWith(Ansi.bold.code));
+      expect('string'.style(Ansi.bold), endsWith(Ansi.reset.code));
+    });
+    test('disabled', () {
+      Ansi.status = AnsiOutput.disabled;
+      expect('string'.style(Ansi.bold), startsWith('str'));
+      expect('string'.style(Ansi.bold), endsWith('ing'));
     });
   });
 }
