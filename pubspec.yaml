@@ -8,9 +8,9 @@ version: 0.1.0
 homepage: https://github.com/simphotonics/ansi_modifier
 
 topics:
-  Ansi
-  terminal
-  console
+  - ansi
+  - terminal
+  - console
 
 environment:
   sdk: '^3.0.0'
