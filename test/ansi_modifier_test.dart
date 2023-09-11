@@ -10,40 +10,40 @@ final planet = 'planet';
 void main() {
   group('Color:', () {
     test('red', () {
-      expect(planet.modify(Ansi.red), startsWith(Ansi.red.toString()));
-      expect(planet.modify(Ansi.red), endsWith(Ansi.reset.toString()));
+      expect(planet.style(Ansi.red), startsWith(Ansi.red.toString()));
+      expect(planet.style(Ansi.red), endsWith(Ansi.reset.toString()));
     });
     test('yellow', () {
-      expect(sun.modify(Ansi.yellow), startsWith(Ansi.yellow.toString()));
-      expect(sun.modify(Ansi.yellow), endsWith(Ansi.reset.toString()));
+      expect(sun.style(Ansi.yellow), startsWith(Ansi.yellow.toString()));
+      expect(sun.style(Ansi.yellow), endsWith(Ansi.reset.toString()));
     });
   });
-  group('clear():', () {
-    final redMoon = moon.modify(Ansi.red);
-    final greenPlanet = planet.modify(Ansi.green);
+  group('clearStyle():', () {
+    final redMoon = moon.style(Ansi.red);
+    final greenPlanet = planet.style(Ansi.green);
     test('simple string', () {
-      expect(redMoon.removeAnsi(), moon);
-      expect((' ' + redMoon).removeAnsi(), ' ' + moon);
+      expect(redMoon.clearStyle(), moon);
+      expect((' ' + redMoon).clearStyle(), ' ' + moon);
     });
     test('complex string', () {
-      expect((redMoon + greenPlanet).removeAnsi(), moon + planet);
+      expect((redMoon + greenPlanet).clearStyle(), moon + planet);
     });
   });
   group('Replace:', () {
     test('starting', () {
       expect(
-          moon.modify(Ansi.red).modify(Ansi.blue),
+          moon.style(Ansi.red).style(Ansi.blue),
           startsWith(
             Ansi.blue.toString(),
           ));
       expect(
-        moon.modify(Ansi.red).length,
-        moon.modify(Ansi.blue).modify(Ansi.red).length,
+        moon.style(Ansi.red).length,
+        moon.style(Ansi.blue).style(Ansi.red).length,
       );
     });
     test('first', () {
-      final risingRedMoon = 'rising ' + moon.modify(Ansi.red);
-      final risingBlueMoon = risingRedMoon.modify(
+      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final risingBlueMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.first,
       );
@@ -51,8 +51,8 @@ void main() {
       expect(risingBlueMoon, endsWith(Ansi.reset.code));
     });
     test('none', () {
-      final risingRedMoon = 'rising ' + moon.modify(Ansi.red);
-      final blueRisingMoon = risingRedMoon.modify(
+      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final blueRisingMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.none,
       );
@@ -61,14 +61,18 @@ void main() {
       expect(blueRisingMoon, endsWith(Ansi.reset.code));
     });
     test('clearPrevious', () {
-      final risingRedMoon = 'rising ' + moon.modify(Ansi.red);
-      final blueRisingMoon = risingRedMoon.modify(
+      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final blueRisingMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.clearPrevious,
       );
       expect(blueRisingMoon, startsWith(Ansi.blue.code));
       expect(blueRisingMoon, isNot(contains(Ansi.red.code)));
       expect(blueRisingMoon, endsWith(Ansi.reset.code));
+      expect(
+        blueRisingMoon.style(Ansi.reset, method: Replace.clearPrevious),
+        'rising moon',
+      );
     });
   });
 }

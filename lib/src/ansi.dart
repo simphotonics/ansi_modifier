@@ -172,7 +172,14 @@ final class Ansi {
     return code;
   }
 
-  /// Used to globally enable/disable color output.
+  /// Set [status] to `false` to globally disable Ansi styling.
+  /// By default [status] is `true`.
+  /// ---
+  /// To disable Ansi styling when running a script use the
+  /// command line option:
+  /// ```
+  /// dart --define=isMonochrome=false
+  /// ```
   static AnsiOutput status = bool.fromEnvironment(
     'isMonochrome',
   )
@@ -186,33 +193,40 @@ extension AnsiModifier on String {
   /// Note: Returns the string unmodified if [Ansi.status] is set to
   /// [AnsiOutput.disabled].
   ///
+  ///
+  ///
   /// Usage:
   /// ```Dart
-  /// final message = 'Hello';
-  /// final greenMessage = message.modify(Ansi.green);
-  /// // greenMessage: '\u001B[32mHello\u001B[0m';
-  /// final blueMessage = message.modify(Ansi.blue, method: Replace.starting);
-  /// // blueMessage: '\u001B[34mHello\u001B[0m;
+  /// var message = 'The ' + 'grass'.style(Ansi.green + Ansi.italic);
+  /// // message: 'The \u001B[3;32mgrass\u001B[0m';
+  /// message = message.style(Ansi.yellow, method: Replace.first);
+  /// // message: 'The \u001B[33mgrass\u001B[0m;
+  /// message = message.style(Ansi.bold);
+  /// // message = '\u001B[1mThe \u001B[33mgrass\u001B[0m;
   /// ```
-  String modify(
+  String style(
     Ansi modifier, {
     Replace method = Replace.starting,
   }) =>
-      switch ((Ansi.status, method)) {
-        (AnsiOutput.disabled, _) => this,
-        (AnsiOutput.enabled, Replace.first) =>
-          replaceFirst(matchAnsi, modifier.code),
-        (AnsiOutput.enabled, Replace.starting) => startsWith(escLeft)
-            ? replaceFirst(
-                matchAnsi,
-                modifier.code,
-              )
-            : (modifier.code + this)._appendReset,
-        (AnsiOutput.enabled, Replace.none) =>
-          (modifier.code + this)._appendReset,
-        (AnsiOutput.enabled, Replace.clearPrevious) =>
-          modifier.code + removeAnsi() + resetSeq,
-      };
+      isEmpty
+          ? this
+          : switch ((Ansi.status, method)) {
+              (AnsiOutput.disabled, _) => this,
+              (AnsiOutput.enabled, Replace.first) =>
+                replaceFirst(matchAnsi, modifier.code),
+              (AnsiOutput.enabled, Replace.starting) => startsWith(escLeft)
+                  ? replaceFirst(
+                      matchAnsi,
+                      modifier.code,
+                    )
+                  : (modifier.code + this)._appendReset,
+              (AnsiOutput.enabled, Replace.none) =>
+                (modifier.code + this)._appendReset,
+              (AnsiOutput.enabled, Replace.clearPrevious) =>
+                modifier == Ansi.reset
+                    ? clearStyle()
+                    : modifier.code + clearStyle() + resetSeq,
+            };
 
   /// Returns the string unmofified if `this` ends with [resetSeq]. Otherwise
   /// appends [resetSeq] and returns the resulting string.
@@ -222,7 +236,7 @@ extension AnsiModifier on String {
   static final matchAnsi = RegExp(r'\u001B\[(\d+|;)+m', unicode: true);
 
   /// Removes all Ansi modifiers and returns the resulting string.
-  String removeAnsi() {
+  String clearStyle() {
     return isEmpty ? this : replaceAll(matchAnsi, '');
   }
 }

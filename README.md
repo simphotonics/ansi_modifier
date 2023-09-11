@@ -4,7 +4,7 @@
 ## Introduction
 
 The package provides the class [`Ansi`][Ansi] holding ANSI modifier codes and
-the String extension methods [`modify`][modify] and [`removeAnsi`][removeAnsi]
+the String extension methods [`style`][style] and [`clearStyle`][clearStyle]
 for adding, replacing, and removing ANSI modifiers.
 
 ## Usage
@@ -12,8 +12,8 @@ for adding, replacing, and removing ANSI modifiers.
 Include [`ansi_modifier`][ansi_modifier] as a dependency
  in your `pubspec.yaml` file.
 
-Use the String extension function [`modify`][modify] to add new modifiers or
-to replace existing ones. Use the function [`removeAnsi`][removeAnsi] to remove
+Use the String extension function [`style`][style] to add new modifiers or
+to replace existing ones. Use the function [`clearStyle`][clearStyle] to remove
 all Ansi modifier from a string.
 
 ```Dart
@@ -22,29 +22,29 @@ import 'package:ansi_modifier/src/ansi.dart';
 void main(List<String> args) {
   /// Create colorized strings.
   print('Create colorized strings:');
-  final blue = 'blueberry'.modify(Ansi.blue + Ansi.italic);
-  final green = 'green apple'.modify(Ansi.green);
+  final blue = 'blueberry'.style(Ansi.blue + Ansi.italic);
+  final green = 'green apple'.style(Ansi.green);
   final blueGreen = blue +
       ' and ' +
-      green.modify(
+      green.style(
         Ansi.bold,
         method: Replace.none,
       );
   print('$blue, $green, $blueGreen');
 
-  /// Modify a previously colorized string.
+  /// style a previously colorized string.
   print('\nModify previously colorized strings:');
 
   /// Replace first modifier:
-  final yellowGreen = blueGreen.modify(Ansi.yellow + Ansi.bold + Ansi.underline,
+  final yellowGreen = blueGreen.style(Ansi.yellow + Ansi.bold + Ansi.underline,
       method: Replace.first);
 
   /// Replace all modifiers.
   final magenta =
-      yellowGreen.modify(Ansi.magenta, method: Replace.clearPrevious);
+      yellowGreen.style(Ansi.magenta, method: Replace.clearPrevious);
 
   /// Strip all Ansi modifiers.
-  print('$yellowGreen, $magenta, ${magenta.removeAnsi()}');
+  print('$yellowGreen, $magenta, ${magenta.clearStyle()}');
 }
 ```
 
@@ -59,7 +59,7 @@ produces the following output on a Visual Studio Code terminal:
 
 ## Tips and Tricks
 
-* The String extension method [`modify`][modify] supports different
+* The String extension method [`style`][style] supports different
 replacement modes that can be adjusted using the optional argument `method`.
 
 * Ansi codes can be combined using the addition operator `Anis.red + Ansi.bold`,
@@ -76,6 +76,6 @@ at the [issue tracker][tracker].
 
 [Ansi]: https://pub.dev/packages/ansi_modifier/doc/api/ansi_modifier/Ansi-class.html
 
-[modify]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/modify.html
+[style]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/style.html
 
-[removeAnsi]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/removeAnsi.html
+[clearStyle]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/clearStyle.html
