@@ -2,7 +2,7 @@ import 'package:ansi_modifier/src/ansi.dart';
 
 void main(List<String> args) {
   /// Create colorized strings.
-  print('Create colorized strings:');
+  print('\nCreate colorized strings:');
   final blue = 'blueberry'.style(Ansi.blue + Ansi.italic);
   final green = 'green apple'.style(Ansi.green);
   final blueGreen = blue +
@@ -17,13 +17,13 @@ void main(List<String> args) {
   print('\nModify previously colorized strings:');
 
   /// Replace first modifier:
-  final yellowGreen = blueGreen.style(Ansi.yellow + Ansi.bold + Ansi.underline,
-      method: Replace.first);
+  final customModifier = Ansi.combine({Ansi.yellow, Ansi.bold, Ansi.underline});
+  final yellowGreen = blueGreen.style(customModifier, method: Replace.first);
 
   /// Replace all modifiers.
   final magenta =
       yellowGreen.style(Ansi.magenta, method: Replace.clearPrevious);
 
   /// Strip all Ansi modifiers.
-  print('$yellowGreen, $magenta, ${magenta.clearStyle()}');
+  print('$yellowGreen, $magenta, ${magenta.clearStyle()}\n');
 }
