@@ -6,6 +6,7 @@
 The package provides the class [`Ansi`][Ansi] holding ANSI modifier codes and
 the String extension methods [`style`][style] and [`clearStyle`][clearStyle]
 for adding, replacing, and removing ANSI modifiers.
+It provides Ansi codes for changing the current cursor position.
 
 ## Usage
 
