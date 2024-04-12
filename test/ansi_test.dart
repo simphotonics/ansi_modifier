@@ -8,8 +8,13 @@ void main() {
       expect(
         ansi.bareCode,
         Ansi.italic.bareCode + ';' + Ansi.red.bareCode,
-        reason: 'Bare code are sorted!',
+        reason: 'Bare codes are sorted!',
       );
+    });
+    test('Ansi.cursorUp', () {
+      final ansi = Ansi.cursorUp(29);
+      expect(ansi.bareCode, 'A');
+      expect(ansi.code, escLeft + '29' + ansi.bareCode);
     });
   });
   group('Accessors', () {

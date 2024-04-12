@@ -43,7 +43,7 @@ dart analyze \
 echo
 echo -e "${CYAN}=== Testing $PWD...${RESET}"
 echo
-dart run test -r expanded --test-randomize-ordering-seed=random
+dart test -r expanded --test-randomize-ordering-seed=random
 
 
 # ================

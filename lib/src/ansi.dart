@@ -32,111 +32,165 @@ enum Replace {
 /// Used to print custom fonts and colorized output to Ansi compliant terminals.
 final class Ansi {
   /// Ansi modifier: Reset to default.
-  static final reset = Ansi._('0');
+  static const reset = Ansi._('0');
 
   /// Ansi modifier bold foreground text.
-  static final bold = Ansi._('1');
+  static const bold = Ansi._('1');
 
   /// Ansi modifier faint foreground text.
-  static final faint = Ansi._('2');
+  static const faint = Ansi._('2');
 
   /// Ansi modifier italic foreground text.
-  static final italic = Ansi._('3');
+  static const italic = Ansi._('3');
 
   /// Ansi mofifiers underlined foreground text.
-  static final underline = Ansi._('4');
+  static const underline = Ansi._('4');
 
   /// Ansi modifier crossed out foreground text.
-  static final crossedOut = Ansi._('9');
+  static const crossedOut = Ansi._('9');
 
   /// Ansi modifier default font.
-  static final defaultFont = Ansi._('10');
+  static const defaultFont = Ansi._('10');
 
   /// Ansi modifier default intensity.
-  static final defaultIntensity = Ansi._('22');
+  static const defaultIntensity = Ansi._('22');
 
   /// Ansi color modifier: black foreground.
-  static final black = Ansi._('30');
+  static const black = Ansi._('30');
 
   /// Ansi color modifier: red foreground.
-  static final red = Ansi._('31');
+  static const red = Ansi._('31');
 
   /// Ansi color modifier: green foreground.
-  static final green = Ansi._('32');
+  static const green = Ansi._('32');
 
   /// Ansi color modifier: yellow foreground.
-  static final yellow = Ansi._('33');
+  static const yellow = Ansi._('33');
 
   /// Ansi color modifier: blue foreground.
-  static final blue = Ansi._('34');
+  static const blue = Ansi._('34');
 
   /// Ansi color modifier: magenta foreground.
-  static final magenta = Ansi._('35');
+  static const magenta = Ansi._('35');
 
   /// Ansi color modifier: magenta bold foreground.
-  static final magentaBold = Ansi._('1;35');
+  static const magentaBold = Ansi._('1;35');
 
   /// Ansi color modifier: cyan foreground.
-  static final cyan = Ansi._('36');
+  static const cyan = Ansi._('36');
 
   /// Ansi color modifier: cyan bold text.
-  static final cyanBold = Ansi._('1;36');
+  static const cyanBold = Ansi._('1;36');
 
   /// Ansi color modifier: grey foreground
-  static final grey = Ansi._('2;37');
+  static const grey = Ansi._('2;37');
 
   /// Ansi color modifier: default foreground colour.
-  static final defaultFg = Ansi._('39');
+  static const defaultFg = Ansi._('39');
 
   /// Ansi color modifier: black background
-  static final blackBg = Ansi._('40');
+  static const blackBg = Ansi._('40');
 
   /// Ansi color modifier: red backgroound
-  static final redBg = Ansi._('41');
+  static const redBg = Ansi._('41');
 
   /// Ansi color modifier: green background
-  static final greenBg = Ansi._('42');
+  static const greenBg = Ansi._('42');
 
   /// Ansi color modifier: yellow background
-  static final yellowBg = Ansi._('43');
+  static const yellowBg = Ansi._('43');
 
   /// Ansi color modifier: blue background
-  static final blueBg = Ansi._('44');
+  static const blueBg = Ansi._('44');
 
   /// Ansi color modifier: magenta background
-  static final magentaBg = Ansi._('45');
+  static const magentaBg = Ansi._('45');
 
   /// Ansi color modifier: cyan background
-  static final cyanBg = Ansi._('46');
+  static const cyanBg = Ansi._('46');
 
   /// Ansi color modifier: white background
-  static final whiteBg = Ansi._('47');
+  static const whiteBg = Ansi._('47');
 
   /// Ansi color modifier: default background colour.
-  static final defaultBg = Ansi._('39');
+  static const defaultBg = Ansi._('39');
 
   /// Ansi color modifier: bright red foreground.
-  static final redBright = Ansi._('91');
+  static const redBright = Ansi._('91');
 
   /// Ansi color modifier: bright green foreground.
-  static final greenBright = Ansi._('92');
+  static const greenBright = Ansi._('92');
 
   /// Ansi color modifier: bright yellow foreground.
-  static final yellowBright = Ansi._('93');
+  static const yellowBright = Ansi._('93');
 
   /// Ansi color modifier: bright blue foreground.
-  static final blueBright = Ansi._('94');
+  static const blueBright = Ansi._('94');
 
   /// Ansi color modifier: bright magenta foreground.
-  static final magentaBright = Ansi._('95');
+  static const magentaBright = Ansi._('95');
 
   /// Ansi color modifier: grey bold foreground
-  static final greyBold = Ansi._('1;90');
+  static const greyBold = Ansi._('1;90');
 
   /// Ansi color modifier: white bold foreground
-  static final whiteBold = Ansi._('1;97');
+  static const whiteBold = Ansi._('1;97');
 
   const Ansi._(this.bareCode) : code = escLeft + bareCode + escRight;
+
+  /// Write Ansi.cursorUp to stdout to move the
+  /// cursor up.
+  ///
+  /// To move several characters up provide the input parameter `n`.
+  const Ansi.cursorUp([int n = 1])
+      : code = escLeft + '${n}A',
+        bareCode = 'A';
+
+  /// Write Ansi.cursorDown to stdout to move the
+  /// cursor down.
+  ///
+  /// To move several characters down provide the input parameter `n`.
+  const Ansi.cursorDown([int n = 1])
+      : code = escLeft + '${n}B',
+        bareCode = 'B';
+
+  /// Write Ansi.cursorForward to stdout to move the
+  /// cursor forward.
+  ///
+  /// To move several characters forward provide the input parameter `n`.
+  const Ansi.cursorForward([int n = 1])
+      : code = escLeft + '${n}C',
+        bareCode = 'C';
+
+  /// Write Ansi.cursorBack to stdout to move the
+  /// cursor back.
+  ///
+  /// To move several character back provide the input parameter `n`.
+  const Ansi.cursorBack([int n = 1])
+      : code = escLeft + '${n}D',
+        bareCode = 'D';
+
+  /// Write Ansi.cursorNextLine to stdout to move the
+  /// cursor to the next line.
+  ///
+  /// To move several lines provide the input parameter `n`.
+  const Ansi.cursorNextLine([int n = 1])
+      : code = escLeft + '${n}E',
+        bareCode = 'E';
+
+  /// Write `Ansi.cursorPreviousLine()` to stdout to move the
+  /// cursor to the beginning of the previous line.
+  ///
+  /// To move several lines provide the input parameter `n`.
+  const Ansi.cursorPreviousLine([int n = 1])
+      : code = escLeft + '${n}F',
+        bareCode = 'F';
+
+  /// Write Ansi.cursorToColumn to stdout to move the
+  /// cursor to the column [n].
+  const Ansi.cursorToColumn(int n)
+      : code = escLeft + '${n}G',
+        bareCode = 'G';
 
   /// Factory constructor combining several Ansi modifiers.
   factory Ansi.combine(Set<Ansi> modifiers) {

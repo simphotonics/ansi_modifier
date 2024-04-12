@@ -47,8 +47,8 @@ at the [issue tracker][tracker].
 
 [ansi_modifier]: https://pub.dev/packages/ansi_modifier
 
-[Ansi]: https://pub.dev/packages/ansi_modifier/doc/api/ansi_modifier/Ansi-class.html
+[Ansi]: https://pub.dev/packages/ansi_modifier/latest/ansi_modifier/Ansi-class.html
 
-[style]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/style.html
+[style]: https://pub.dev/documentation/ansi_modifier/latest/ansi_modifier/AnsiModifier/style.html
 
-[clearAnsi]: https://pub.dev/documentation/ansi_modifier/doc/api/ansi_modifier/AnsiModifier/asyncGroup.html
+[clearAnsi]: https://pub.dev/documentation/ansi_modifier/latest/ansi_modifier/AnsiModifier/asyncGroup.html
