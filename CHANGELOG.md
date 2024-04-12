@@ -2,7 +2,8 @@
 ## 0.1.2
 * Added named constructor for generating ansi sequences that move the
   current cursor position. (`Use with stdout.write()`).
-* Updated `dart.yml` actions. 
+* Added example showing how to move the current cursor position.
+* Updated `dart.yml` actions.
 
 ## 0.1.1
 * Added Ansi modifiers.
