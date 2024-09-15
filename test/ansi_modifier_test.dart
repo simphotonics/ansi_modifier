@@ -86,14 +86,18 @@ void main() {
   });
   group('Ansi output', () {
     test('enabled', () {
+      final status = Ansi.status;
       Ansi.status = AnsiOutput.enabled;
       expect('string'.style(Ansi.bold), startsWith(Ansi.bold.code));
       expect('string'.style(Ansi.bold), endsWith(Ansi.reset.code));
+      Ansi.status = status;
     });
     test('disabled', () {
+      final status = Ansi.status;
       Ansi.status = AnsiOutput.disabled;
       expect('string'.style(Ansi.bold), startsWith('str'));
       expect('string'.style(Ansi.bold), endsWith('ing'));
+      Ansi.status = status;
     });
   });
 }

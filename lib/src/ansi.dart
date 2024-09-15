@@ -243,11 +243,12 @@ final class Ansi {
 
   /// Set [status] to `false` to globally disable Ansi styling.
   /// By default [status] is `true`.
-  /// ---
-  /// To disable Ansi styling when running a script use the
+  ///
+  ///
+  /// To disable Ansi styling when running a Dart script use the
   /// command line option:
   /// ```
-  /// dart --define=isMonochrome=false
+  /// dart --define=isMonochrome=true
   /// ```
   static AnsiOutput status = bool.fromEnvironment(
     'isMonochrome',

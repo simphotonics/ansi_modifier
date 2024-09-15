@@ -1,4 +1,8 @@
 
+## 0.1.3
+* Updated dev dependencies.
+* Corrected documentation.
+
 ## 0.1.2
 * Added named constructor for generating ansi sequences that move the
   current cursor position. (`Use with stdout.write()`).
