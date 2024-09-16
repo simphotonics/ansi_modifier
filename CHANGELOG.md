@@ -1,4 +1,7 @@
 
+## 0.1.4
+* Added progress indicator example
+
 ## 0.1.3
 * Updated dev dependencies.
 * Corrected documentation.

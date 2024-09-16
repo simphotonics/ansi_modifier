@@ -53,13 +53,8 @@ void main(List<String> args) {
 }
 ```
 
-Runnig the program above:
-```Console
-$ dart example/bin/color_example.dart
-```
-produces the following output:
-
-![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.png)
+Runnig the program above produces the following output:
+![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.gif)
 
 
 ### 2. Moving the Current Cursor Position

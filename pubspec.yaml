@@ -3,7 +3,7 @@ name: ansi_modifier
 description: Style strings for terminal output by adding, replacing, or removing
   ANSI modifiers. Provides support for moving the current cursor position.
 
-version: 0.1.3
+version: 0.1.4
 
 homepage: https://github.com/simphotonics/ansi_modifier
 
