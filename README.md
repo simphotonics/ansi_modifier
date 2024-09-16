@@ -71,33 +71,39 @@ constructors `.cursorUp`, `.cursorDown`,
 `.cursorNextLine`,
 `.cursorPreviousLine`, and
 `.cursorToColumn`.
-These codes can be used e.g. to create shell progress indicators and timers.
 
 The example below shows how to change the current cursor position by
-using Dart's `stdout` function `write`.
+using Dart's `stdout` function `write` in order to display a
+progress indicators.
 
 ```Dart
 import 'dart:io';
 
 import 'package:ansi_modifier/src/ansi.dart';
 
-void main(List<String> args) {
-  print('Moving the cursor:');
+void main(List<String> args) async {
+  final stream = Stream<String>.periodic(
+      const Duration(milliseconds: 500),
+      (i) =>
+          'Progress timer: '.style(Ansi.grey) +
+          ((i * 500 / 1000).toString() + ' s').style(Ansi.green));
 
-  stdout.write('Hello world!');
-  stdout.write(Ansi.cursorToColumn(1)); // Moving to the first column.
-  stdout.write('Say Hi to the moon!');
-  stdout.write(Ansi.cursorForward(10)); // Moving forward by 10 characters.
-  stdout.write('Hi there.');
-  print('');
+  final subscription = stream.listen((event) {
+    stdout.write(Ansi.cursorToColumn(1));
+    stdout.write(event);
+  });
+
+  /// Delay cause by expensive numerical operation ...
+  await Future.delayed(Duration(seconds: 5), () {
+    print('\n');
+    print('After 5 seconds.'.style(Ansi.green));
+  });
+
+  await subscription.cancel();
 }
 ```
 The program above produces the following console output:
-```Console
-$ dart example/bin/cursor_example.dart
-Moving the cursor:
-Say Hi to the moon!          Hi there.
-```
+![Progress Indicator](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/progress_indicator.gif)
 
 
 ## Tips and Tricks
