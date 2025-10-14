@@ -1,8 +1,7 @@
 name: ansi_modifier
 
-description: Simplifies styling strings for colour terminal output by adding,
-  replacing, or removing ANSI modifiers. Provides support for moving the current
-  cursor position.
+description: Helps styling terminal outputs by adding,
+             replacing, and clearing ANSI modifiers.
 
 version: 0.1.5
 
