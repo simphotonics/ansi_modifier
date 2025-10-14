@@ -32,19 +32,17 @@ void main() {
   group('Reset:', () {
     test('replace starting', () {
       expect(
-          ('The ' + 'fox'.style(Ansi.bold)).style(Ansi.reset),
-          startsWith(
-            Ansi.reset.code,
-          ));
+        ('The ' + 'fox'.style(Ansi.bold)).style(Ansi.reset),
+        startsWith(Ansi.reset.code),
+      );
     });
   });
   group('Replace:', () {
     test('starting', () {
       expect(
-          moon.style(Ansi.red).style(Ansi.blue),
-          startsWith(
-            Ansi.blue.toString(),
-          ));
+        moon.style(Ansi.red).style(Ansi.blue),
+        startsWith(Ansi.blue.toString()),
+      );
       expect(
         moon.style(Ansi.red).length,
         moon.style(Ansi.blue).style(Ansi.red).length,

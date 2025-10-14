@@ -142,66 +142,59 @@ final class Ansi {
   /// cursor up.
   ///
   /// To move several characters up provide the input parameter `n`.
-  const Ansi.cursorUp([int n = 1])
-      : code = escLeft + '${n}A',
-        bareCode = 'A';
+  const Ansi.cursorUp([int n = 1]) : code = escLeft + '${n}A', bareCode = 'A';
 
   /// Write Ansi.cursorDown to stdout to move the
   /// cursor down.
   ///
   /// To move several characters down provide the input parameter `n`.
-  const Ansi.cursorDown([int n = 1])
-      : code = escLeft + '${n}B',
-        bareCode = 'B';
+  const Ansi.cursorDown([int n = 1]) : code = escLeft + '${n}B', bareCode = 'B';
 
   /// Write Ansi.cursorForward to stdout to move the
   /// cursor forward.
   ///
   /// To move several characters forward provide the input parameter `n`.
   const Ansi.cursorForward([int n = 1])
-      : code = escLeft + '${n}C',
-        bareCode = 'C';
+    : code = escLeft + '${n}C',
+      bareCode = 'C';
 
   /// Write Ansi.cursorBack to stdout to move the
   /// cursor back.
   ///
   /// To move several character back provide the input parameter `n`.
-  const Ansi.cursorBack([int n = 1])
-      : code = escLeft + '${n}D',
-        bareCode = 'D';
+  const Ansi.cursorBack([int n = 1]) : code = escLeft + '${n}D', bareCode = 'D';
 
   /// Write Ansi.cursorNextLine to stdout to move the
   /// cursor to the next line.
   ///
   /// To move several lines provide the input parameter `n`.
   const Ansi.cursorNextLine([int n = 1])
-      : code = escLeft + '${n}E',
-        bareCode = 'E';
+    : code = escLeft + '${n}E',
+      bareCode = 'E';
 
   /// Write `Ansi.cursorPreviousLine()` to stdout to move the
   /// cursor to the beginning of the previous line.
   ///
   /// To move several lines provide the input parameter `n`.
   const Ansi.cursorPreviousLine([int n = 1])
-      : code = escLeft + '${n}F',
-        bareCode = 'F';
+    : code = escLeft + '${n}F',
+      bareCode = 'F';
 
   /// Write Ansi.cursorToColumn to stdout to move the
   /// cursor to the column [n].
-  const Ansi.cursorToColumn(int n)
-      : code = escLeft + '${n}G',
-        bareCode = 'G';
+  const Ansi.cursorToColumn(int n) : code = escLeft + '${n}G', bareCode = 'G';
 
   /// Factory constructor combining several Ansi modifiers.
   factory Ansi.combine(Set<Ansi> modifiers) {
     // Extract modifiers:
-    final bareCodes = (modifiers
-            .map<String>((element) => element.bareCode)
-            .join(';')
-            .split(';')
-          ..sort())
-        .toSet()
-        .join(';');
+    final bareCodes =
+        (modifiers
+                .map<String>((element) => element.bareCode)
+                .join(';')
+                .split(';')
+              ..sort())
+            .toSet()
+            .join(';');
 
     return Ansi._(bareCodes);
   }
@@ -250,9 +243,7 @@ final class Ansi {
   /// ```
   /// dart --define=isMonochrome=true
   /// ```
-  static AnsiOutput status = bool.fromEnvironment(
-    'isMonochrome',
-  )
+  static AnsiOutput status = bool.fromEnvironment('isMonochrome')
       ? AnsiOutput.disabled
       : AnsiOutput.enabled;
 }
@@ -274,29 +265,25 @@ extension AnsiModifier on String {
   /// message = message.style(Ansi.bold);
   /// // message = '\u001B[1mThe \u001B[33mgrass\u001B[0m;
   /// ```
-  String style(
-    Ansi modifier, {
-    Replace method = Replace.starting,
-  }) =>
-      isEmpty
-          ? this
-          : switch ((Ansi.status, method)) {
-              (AnsiOutput.disabled, _) => this,
-              (AnsiOutput.enabled, Replace.first) =>
-                replaceFirst(matchAnsi, modifier.code),
-              (AnsiOutput.enabled, Replace.starting) => startsWith(escLeft)
-                  ? replaceFirst(
-                      matchAnsi,
-                      modifier.code,
-                    )
-                  : (modifier.code + this)._appendReset,
-              (AnsiOutput.enabled, Replace.none) =>
-                (modifier.code + this)._appendReset,
-              (AnsiOutput.enabled, Replace.clearPrevious) =>
-                modifier == Ansi.reset
-                    ? clearStyle()
-                    : modifier.code + clearStyle() + resetSeq,
-            };
+  String style(Ansi modifier, {Replace method = Replace.starting}) => isEmpty
+      ? this
+      : switch ((Ansi.status, method)) {
+          (AnsiOutput.disabled, _) => this,
+          (AnsiOutput.enabled, Replace.first) => replaceFirst(
+            matchAnsi,
+            modifier.code,
+          ),
+          (AnsiOutput.enabled, Replace.starting) =>
+            startsWith(escLeft)
+                ? replaceFirst(matchAnsi, modifier.code)
+                : (modifier.code + this)._appendReset,
+          (AnsiOutput.enabled, Replace.none) =>
+            (modifier.code + this)._appendReset,
+          (AnsiOutput.enabled, Replace.clearPrevious) =>
+            modifier == Ansi.reset
+                ? clearStyle()
+                : modifier.code + clearStyle() + resetSeq,
+        };
 
   /// Returns the string unmofified if `this` ends with [resetSeq]. Otherwise
   /// appends [resetSeq] and returns the resulting string.

@@ -5,12 +5,8 @@ void main(List<String> args) {
   print('\nCreate colorized strings:');
   final blue = 'blueberry'.style(Ansi.blue + Ansi.italic);
   final green = 'green apple'.style(Ansi.green);
-  final blueGreen = blue +
-      ' and ' +
-      green.style(
-        Ansi.bold,
-        method: Replace.none,
-      );
+  final blueGreen =
+      blue + ' and ' + green.style(Ansi.bold, method: Replace.none);
   print('$blue, $green, $blueGreen');
 
   // Modify a previously colorized string.
@@ -23,8 +19,10 @@ void main(List<String> args) {
   final yellowGreen = blueGreen.style(customModifier, method: Replace.first);
 
   // Replace all modifiers.
-  final magenta =
-      yellowGreen.style(Ansi.magenta, method: Replace.clearPrevious);
+  final magenta = yellowGreen.style(
+    Ansi.magenta,
+    method: Replace.clearPrevious,
+  );
 
   // Strip all Ansi modifiers.
   print('$yellowGreen, $magenta, ${magenta.clearStyle()}\n');

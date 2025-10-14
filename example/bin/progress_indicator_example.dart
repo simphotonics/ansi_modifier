@@ -5,10 +5,11 @@ import 'package:ansi_modifier/src/ansi.dart';
 void main(List<String> args) async {
   // Emit a periodic stream
   final stream = Stream<String>.periodic(
-      const Duration(milliseconds: 500),
-      (i) =>
-          'Progress timer: '.style(Ansi.grey) +
-          ((i * 500 / 1000).toString() + ' s').style(Ansi.green));
+    const Duration(milliseconds: 500),
+    (i) =>
+        'Progress timer: '.style(Ansi.grey) +
+        ((i * 500 / 1000).toString() + ' s').style(Ansi.green),
+  );
   // Listen to the stream and output progress indicator
   final subscription = stream.listen((event) {
     // Place cursor to first column to overwrite previous string.

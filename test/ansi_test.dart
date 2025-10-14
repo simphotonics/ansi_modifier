@@ -37,10 +37,7 @@ void main() {
   });
   group('Operator:', () {
     test('+', () {
-      expect(
-        Ansi.combine({Ansi.cyan, Ansi.bold}),
-        (Ansi.cyan + Ansi.bold),
-      );
+      expect(Ansi.combine({Ansi.cyan, Ansi.bold}), (Ansi.cyan + Ansi.bold));
     });
     test('Equals', () {
       expect(Ansi.red, Ansi.red);
