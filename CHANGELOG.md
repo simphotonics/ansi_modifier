@@ -1,4 +1,8 @@
 
+## 1.0.0
+* Requires Dart ^3.13.0.
+* Uses short constructor syntax. 
+
 ## 0.1.5
 * Updated dev dependencies.
 
