@@ -23,7 +23,7 @@ void main() {
     final greenPlanet = planet.style(Ansi.green);
     test('simple string', () {
       expect(redMoon.clearStyle(), moon);
-      expect((' ' + redMoon).clearStyle(), ' ' + moon);
+      expect((' $redMoon').clearStyle(), ' $moon');
     });
     test('complex string', () {
       expect((redMoon + greenPlanet).clearStyle(), moon + planet);
@@ -32,7 +32,7 @@ void main() {
   group('Reset:', () {
     test('replace starting', () {
       expect(
-        ('The ' + 'fox'.style(Ansi.bold)).style(Ansi.reset),
+        ('The ${'fox'.style(Ansi.bold)}').style(Ansi.reset),
         startsWith(Ansi.reset.code),
       );
     });
@@ -49,16 +49,16 @@ void main() {
       );
     });
     test('first', () {
-      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
       final risingBlueMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.first,
       );
-      expect(risingBlueMoon, startsWith('rising ' + Ansi.blue.code));
+      expect(risingBlueMoon, startsWith('rising ${Ansi.blue.code}'));
       expect(risingBlueMoon, endsWith(Ansi.reset.code));
     });
     test('none', () {
-      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
       final blueRisingMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.none,
@@ -68,7 +68,7 @@ void main() {
       expect(blueRisingMoon, endsWith(Ansi.reset.code));
     });
     test('clearPrevious', () {
-      final risingRedMoon = 'rising ' + moon.style(Ansi.red);
+      final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
       final blueRisingMoon = risingRedMoon.style(
         Ansi.blue,
         method: Replace.clearPrevious,

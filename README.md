@@ -3,20 +3,22 @@
 
 ## Introduction
 
-The package provides the class [`Ansi`][Ansi] holding ANSI modifier codes and
-the String extension methods [`style`][style] and [`clearStyle`][clearStyle]
-for adding, replacing, and removing ANSI modifiers.
-It provides Ansi codes for changing the current cursor position.
+The class [`Ansi`][Ansi] provides ANSI modifier codes which can be used to
+style and animate console output, and to change to current cursor position.
+
 
 ## Usage
 
 Include [`ansi_modifier`][ansi_modifier] as a dependency
- in your `pubspec.yaml` file.
+in your `pubspec.yaml` file.
 
 
 ### 1. Changing the Font Style and Colour of Console Output
-Use the String extension function [`style`][style] to add new modifiers or
-to replace existing ones. Use the function [`clearStyle`][clearStyle] to remove
+
+Use the String extension function [`style`][style] to *add* new modifiers or
+to *replace* existing ones.
+
+Use the function [`clearStyle`][clearStyle] to *remove*
 all Ansi modifier from a string.
 
 ```Dart

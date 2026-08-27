@@ -8,7 +8,7 @@ void main(List<String> args) async {
     const Duration(milliseconds: 500),
     (i) =>
         'Progress timer: '.style(Ansi.grey) +
-        ((i * 500 / 1000).toString() + ' s').style(Ansi.green),
+        ('${i * 500 / 1000} s').style(Ansi.green),
   );
   // Listen to the stream and output progress indicator
   final subscription = stream.listen((event) {

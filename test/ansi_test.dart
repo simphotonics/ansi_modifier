@@ -7,14 +7,14 @@ void main() {
       final ansi = Ansi.combine({Ansi.red, Ansi.italic});
       expect(
         ansi.bareCode,
-        Ansi.italic.bareCode + ';' + Ansi.red.bareCode,
+        '${Ansi.italic.bareCode};${Ansi.red.bareCode}',
         reason: 'Bare codes are sorted!',
       );
     });
     test('Ansi.cursorUp', () {
       final ansi = Ansi.cursorUp(29);
       expect(ansi.bareCode, 'A');
-      expect(ansi.code, escLeft + '29' + ansi.bareCode);
+      expect(ansi.code, '${escLeft}29${ansi.bareCode}');
     });
   });
   group('Accessors', () {
@@ -25,7 +25,7 @@ void main() {
             .having(
               (ansi) => ansi.code,
               'escaped code',
-              escLeft + '31' + escRight,
+              '${escLeft}31$escRight',
             )
             .having((ansi) => ansi.bareCode, 'bare code', '31'),
       );

@@ -136,56 +136,54 @@ final class Ansi {
   /// Ansi color modifier: white bold foreground
   static const whiteBold = Ansi._('1;97');
 
-  const Ansi._(this.bareCode) : code = escLeft + bareCode + escRight;
+  const new _(this.bareCode) : code = escLeft + bareCode + escRight;
 
   /// Write Ansi.cursorUp to stdout to move the
   /// cursor up.
   ///
   /// To move several characters up provide the input parameter `n`.
-  const Ansi.cursorUp([int n = 1]) : code = escLeft + '${n}A', bareCode = 'A';
+  const new cursorUp([int n = 1]) : code = '$escLeft${n}A', bareCode = 'A';
 
   /// Write Ansi.cursorDown to stdout to move the
   /// cursor down.
   ///
   /// To move several characters down provide the input parameter `n`.
-  const Ansi.cursorDown([int n = 1]) : code = escLeft + '${n}B', bareCode = 'B';
+  const new cursorDown([int n = 1]) : code = '$escLeft${n}B', bareCode = 'B';
 
   /// Write Ansi.cursorForward to stdout to move the
   /// cursor forward.
   ///
   /// To move several characters forward provide the input parameter `n`.
-  const Ansi.cursorForward([int n = 1])
-    : code = escLeft + '${n}C',
-      bareCode = 'C';
+  const new cursorForward([int n = 1]) : code = '$escLeft${n}C', bareCode = 'C';
 
   /// Write Ansi.cursorBack to stdout to move the
   /// cursor back.
   ///
   /// To move several character back provide the input parameter `n`.
-  const Ansi.cursorBack([int n = 1]) : code = escLeft + '${n}D', bareCode = 'D';
+  const new cursorBack([int n = 1]) : code = '$escLeft${n}D', bareCode = 'D';
 
   /// Write Ansi.cursorNextLine to stdout to move the
   /// cursor to the next line.
   ///
   /// To move several lines provide the input parameter `n`.
-  const Ansi.cursorNextLine([int n = 1])
-    : code = escLeft + '${n}E',
+  const new cursorNextLine([int n = 1])
+    : code = '$escLeft${n}E',
       bareCode = 'E';
 
   /// Write `Ansi.cursorPreviousLine()` to stdout to move the
   /// cursor to the beginning of the previous line.
   ///
   /// To move several lines provide the input parameter `n`.
-  const Ansi.cursorPreviousLine([int n = 1])
-    : code = escLeft + '${n}F',
+  const new cursorPreviousLine([int n = 1])
+    : code = '$escLeft${n}F',
       bareCode = 'F';
 
   /// Write Ansi.cursorToColumn to stdout to move the
   /// cursor to the column [n].
-  const Ansi.cursorToColumn(int n) : code = escLeft + '${n}G', bareCode = 'G';
+  const new cursorToColumn(int n) : code = '$escLeft${n}G', bareCode = 'G';
 
   /// Factory constructor combining several Ansi modifiers.
-  factory Ansi.combine(Set<Ansi> modifiers) {
+  factory combine(Set<Ansi> modifiers) {
     // Extract modifiers:
     final bareCodes =
         (modifiers
@@ -218,6 +216,7 @@ final class Ansi {
 
   /// Returns `true` if [other] is of type [Ansi] and
   /// `bareCode == other.bareCode`. Returns `false` otherwise.
+  @override
   bool operator ==(Object other) {
     if (other is Ansi) {
       return bareCode == other.bareCode;
