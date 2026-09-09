@@ -1,28 +1,52 @@
-import 'package:ansi_modifier/src/ansi.dart';
+import 'package:ansi_modifier/ansi_modifier.dart';
 
 void main(List<String> args) {
   // Create colorized strings.
-  print('\nCreate colorized strings:');
-  final blue = 'blueberry'.style(Ansi.blue + Ansi.italic);
-  final green = 'green apple'.style(Ansi.green);
-  final blueGreen = '$blue and ${green.style(Ansi.bold, method: Replace.none)}';
-  print('$blue, $green, $blueGreen');
+  print('\nStyle string:'.style(Ansi.underline));
+  final example =
+      'blueberry'.style(Ansi.blueBright) +
+      ' and ' +
+      'green apple'.style(Ansi.greenBright);
+  print(example);
 
-  // Modify a previously colorized string.
-  print('\nModify previously colorized strings:');
-
-  // Create custom Anis modifier
-  final customModifier = Ansi.combine({Ansi.yellow, Ansi.bold, Ansi.underline});
-
-  // Replace first modifier:
-  final yellowGreen = blueGreen.style(customModifier, method: Replace.first);
-
-  // Replace all modifiers.
-  final magenta = yellowGreen.style(
-    Ansi.magenta,
-    method: Replace.clearPrevious,
+  // Replace first font modifier code
+  print(
+    '\nReplace first Ansi modifier: EditMethod.replaceFirst'.style(
+      Ansi.underline,
+    ),
+  );
+  print(
+    example.style(Ansi.yellow + Ansi.bold, editMethod: EditMethod.replaceFirst),
   );
 
+  // Replace all existing font modifier codes.
+  print(
+    '\nReplace all Ansi modifiers: EditMethod.replaceAll'.style(Ansi.underline),
+  );
+  print(
+    example.style(
+      Ansi.redBright + Ansi.bold,
+      editMethod: EditMethod.replaceAll,
+    ),
+  );
+
+  // Clear previous font modifiers and re-style entire string.
+  print(
+    '\nClear previous modifiers and style entire string: EditMethod.clearExisting'
+        .style(Ansi.underline),
+  );
+  print(example.style(Ansi.magenta, editMethod: EditMethod.clearExisting));
+
+  // Keep existing Ansi modifiers and add styling.
+  print(
+    '\nAmend existing modifiers: EditMethod.addToExisting'.style(
+      Ansi.underline,
+    ),
+  );
+  print(example.style(Ansi.italic, editMethod: EditMethod.addToExisting));
+  print(example.style(Ansi.underline, editMethod: EditMethod.add));
+
   // Strip all Ansi modifiers.
-  print('$yellowGreen, $magenta, ${magenta.clearStyle()}\n');
+  print('\nStrip all Ansi modifiers: clearStyle()'.style(Ansi.underline));
+  print(example.clearStyle());
 }
