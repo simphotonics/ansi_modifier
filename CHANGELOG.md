@@ -1,7 +1,17 @@
 
+## 1.1.0
+* The class `Ansi` is now an extension type on `String`.
+* The classes `FontModifier` and `CursorModifier` are subclasses of `Ansi`.
+* The extension method `style()` now supports the edit methods:
+`EditMethod.add`,
+`EditMethod.addToExisting`,
+`EditMethod.clearExisting`,
+`EditMethod.replaceFirst`,
+`EditMethod.replaceAll`.
+
 ## 1.0.0
 * Requires Dart ^3.13.0.
-* Uses short constructor syntax. 
+* Uses short constructor syntax.
 
 ## 0.1.5
 * Updated dev dependencies.
@@ -23,7 +33,8 @@
 * Added Ansi modifiers.
 
 ## 0.1.0
-* Breaking change: renamed method `modify()` -> `style()` and `removeAnsi()` -> `clearStyle()`.
+* Breaking change: renamed method `modify()` -> `style()` and
+  `removeAnsi()` -> `clearStyle()`.
 
 ## 0.0.1
 * Initial version
