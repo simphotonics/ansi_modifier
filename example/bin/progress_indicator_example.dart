@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ansi_modifier/src/ansi.dart';
+import 'package:ansi_modifier/ansi_modifier.dart';
 
 void main(List<String> args) async {
   // Emit a periodic stream
@@ -8,12 +8,12 @@ void main(List<String> args) async {
     const Duration(milliseconds: 500),
     (i) =>
         'Progress timer: '.style(Ansi.grey) +
-        ('${i * 500 / 1000} s').style(Ansi.green),
+        ('${i * 500 / 1000} s').style(Ansi.greenBright),
   );
   // Listen to the stream and output progress indicator
   final subscription = stream.listen((event) {
     // Place cursor to first column to overwrite previous string.
-    stdout.write(Ansi.cursorToColumn(1));
+    stdout.write(CursorModifier.toColumn(1));
     stdout.write(event);
   });
 
