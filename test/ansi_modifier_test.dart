@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:ansi_modifier/ansi_modifier.dart';
-import 'package:ansi_modifier/src/ansi.dart';
 import 'package:test/test.dart';
 
 final sun = 'sun';
@@ -37,47 +38,62 @@ void main() {
       );
     });
   });
-  group('Replace:', () {
-    test('starting', () {
+  group('EditMethod:', () {
+    test('add', () {
       expect(
         moon.style(Ansi.red).style(Ansi.blue),
+        '\x1B[34m\x1B[31mmoon\x1B[0m\x1B[0m',
+      );
+    });
+    test('addToExisting', () {
+      expect(
+        (sun + ' ' + moon.style(Ansi.red)).style(
+          Ansi.italic,
+          editMethod: EditMethod.addToExisting,
+        ),
+        'sun \x1B[31;3mmoon\x1B[0m',
+      );
+    });
+
+    test('replaceFirst', () {
+      expect(
+        moon
+            .style(Ansi.red)
+            .style(Ansi.blue, editMethod: EditMethod.replaceFirst),
         startsWith(Ansi.blue.toString()),
       );
       expect(
         moon.style(Ansi.red).length,
-        moon.style(Ansi.blue).style(Ansi.red).length,
+        moon
+            .style(Ansi.blue)
+            .style(Ansi.red, editMethod: EditMethod.replaceFirst)
+            .length,
       );
     });
-    test('first', () {
-      final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
-      final risingBlueMoon = risingRedMoon.style(
+    test('replaceAll', () {
+      final moonAndStar =
+          'rising ${moon.style(Ansi.red)} and ${star.style(Ansi.red)}';
+      final blueMoonAndStar = moonAndStar.style(
         Ansi.blue,
-        method: Replace.first,
+        editMethod: EditMethod.replaceAll,
       );
-      expect(risingBlueMoon, startsWith('rising ${Ansi.blue.code}'));
-      expect(risingBlueMoon, endsWith(Ansi.reset.code));
-    });
-    test('none', () {
-      final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
-      final blueRisingMoon = risingRedMoon.style(
-        Ansi.blue,
-        method: Replace.none,
+      expect(
+        blueMoonAndStar,
+        'rising \x1B[34mmoon\x1B[0m and \x1B[34mstar\x1B[0m',
       );
-      expect(blueRisingMoon, startsWith(Ansi.blue.code));
-      expect(blueRisingMoon, contains(Ansi.red.code));
-      expect(blueRisingMoon, endsWith(Ansi.reset.code));
     });
-    test('clearPrevious', () {
+
+    test('clearExisting', () {
       final risingRedMoon = 'rising ${moon.style(Ansi.red)}';
       final blueRisingMoon = risingRedMoon.style(
         Ansi.blue,
-        method: Replace.clearPrevious,
+        editMethod: EditMethod.clearExisting,
       );
       expect(blueRisingMoon, startsWith(Ansi.blue.code));
       expect(blueRisingMoon, isNot(contains(Ansi.red.code)));
       expect(blueRisingMoon, endsWith(Ansi.reset.code));
       expect(
-        blueRisingMoon.style(Ansi.reset, method: Replace.clearPrevious),
+        blueRisingMoon.style(Ansi.reset, editMethod: EditMethod.clearExisting),
         'rising moon',
       );
     });

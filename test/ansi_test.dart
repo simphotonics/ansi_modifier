@@ -1,27 +1,24 @@
 import 'package:ansi_modifier/ansi_modifier.dart';
 import 'package:test/test.dart';
 
+// Left Ansi escape sequence
+const escLeft = '\u001B[';
+
+// Right FontModifier escape character
+const escRight = 'm';
+
 void main() {
   group('Constructors:', () {
-    test('factory Ansi.combine', () {
-      final ansi = Ansi.combine({Ansi.red, Ansi.italic});
-      expect(
-        ansi.bareCode,
-        '${Ansi.italic.bareCode};${Ansi.red.bareCode}',
-        reason: 'Bare codes are sorted!',
-      );
-    });
-    test('Ansi.cursorUp', () {
-      final ansi = Ansi.cursorUp(29);
-      expect(ansi.bareCode, 'A');
-      expect(ansi.code, '${escLeft}29${ansi.bareCode}');
+    test('factory FontModifier.combine', () {
+      final ansi = FontModifier.combine(4, 5);
+      expect(ansi.bareCode, '4;5');
     });
   });
   group('Accessors', () {
     test('fields', () {
       expect(
         Ansi.red,
-        isA<Ansi>()
+        isA<FontModifier>()
             .having(
               (ansi) => ansi.code,
               'escaped code',
@@ -37,17 +34,14 @@ void main() {
   });
   group('Operator:', () {
     test('+', () {
-      expect(Ansi.combine({Ansi.cyan, Ansi.bold}), (Ansi.cyan + Ansi.bold));
+      expect(FontModifier.combine(36, 1), (Ansi.cyan + Ansi.bold));
     });
     test('Equals', () {
       expect(Ansi.red, Ansi.red);
-      expect(Ansi.red + Ansi.bold, Ansi.bold + Ansi.red);
+      expect(Ansi.red, FontModifier(31));
     });
     test('bareCode', () {
-      expect(
-        (Ansi.bold + Ansi.italic).bareCode,
-        (Ansi.italic + Ansi.bold).bareCode,
-      );
+      expect((Ansi.bold + Ansi.italic).bareCode, '1;3');
     });
   });
 }
