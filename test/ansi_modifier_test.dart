@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ansi_modifier/ansi_modifier.dart';
 import 'package:test/test.dart';
 
