@@ -13,7 +13,7 @@ void main(List<String> args) async {
   // Listen to the stream and output progress indicator
   final subscription = stream.listen((event) {
     // Place cursor to first column to overwrite previous string.
-    stdout.write(CursorModifier.toColumn(1));
+    stdout.write(Ansi.cursorToColumn(1));
     stdout.write(event);
   });
 
