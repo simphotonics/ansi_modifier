@@ -16,19 +16,18 @@ in your `pubspec.yaml` file.
 
 ### 1. Changing the Font Style and Color of Console Output
 
-The easiest way of changing the colour and font style of console output
-is by using the String extension method [`style`][style]:
+The easiest way of changing the color and font style of console output
+is by using the [`String`][String] extension method [`style`][style]:
 ```Dart
 final s = 'The ' + 'red'.style(Ansi.red) + ' fox jumps '
-  'over the ' + 'green'.style(Ansi.green + Ansi.italic) + ' fence';
+  'over the ' + 'green'.style(Ansi.green + Ansi.italic) + ' fence.';
 print(s);
 ```
-
-Ansi escape codes are made available as static const variable of the
-extension type [`Ansi`][Ansi].
 On an Ansi compliant terminal, the code lines above produce the
 following console output:
 ![Console Output](https://github.com/simphotonics/ansi_modifier/raw/main/images/console_output.svg)
+
+
 
 The method [`style`][style] supports different
 edit modes that can be used to easily
@@ -113,7 +112,7 @@ resets the font style to the default style.
 
 ### 2. Moving the Current Cursor Position
 
-Ansi escape codes for moving the current cursor position can be constructed
+Ansi escape codes for moving the current cursor position can be created by
 using the constructors
 `Ansi.cursorUp`,
 `Ansi.cursorDown`,
@@ -163,9 +162,9 @@ The program above produces the following console output:
 
 ## Tips and Tricks
 
-* The function [`clearStyle`][clearStyle] can be used *remove*
-all Ansi escape codes of type [`FontModifier][FontModifier] from a string.
-* The String extension method [`style`][style] supports different
+* The function [`clearStyle`][clearStyle] can be used to *remove*
+all Ansi escape codes of type [`FontModifier`][FontModifier] from a string.
+* The [`String`][String] extension method [`style`][style] supports different
 replacement modes that can be adjusted using the optional argument `editMethod`.
 * Ansi codes can be combined using the addition operator `Ansi.red + Ansi.bold`.
 * Using the function [`style][style] to add Ansi codes provides the option of
@@ -183,7 +182,7 @@ replacement modes that can be adjusted using the optional argument `editMethod`.
 ## Features and bugs
 
 If Ansi modifiers that are useful to you are missing, you are welcome to
-create pull request or raise an enhancement request
+create a pull request or raise an enhancement request
 at the [issue tracker][tracker].
 
 [tracker]: https://github.com/simphotonics/ansi_modifier/issues
@@ -197,3 +196,5 @@ at the [issue tracker][tracker].
 [style]: https://pub.dev/documentation/ansi_modifier/latest/ansi_modifier/AnsiModifier/style.html
 
 [clearStyle]: https://pub.dev/documentation/ansi_modifier/latest/ansi_modifier/AnsiModifier/clearStyle.html
+
+[String]: https://api.dart.dev/dart-core/String-class.html

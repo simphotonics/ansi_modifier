@@ -7,6 +7,6 @@ void main(List<String> args) {
       ' fox jumps '
           'over the ' +
       'green'.style(Ansi.greenBright + Ansi.italic) +
-      ' fence';
+      ' fence.';
   print(s);
 }
