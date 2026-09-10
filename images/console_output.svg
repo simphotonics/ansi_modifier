@@ -1,42 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="696.4" height="376" viewBox="0 0 696.4 376" role="img" aria-label="console2svg output">
+<svg xmlns="http://www.w3.org/2000/svg" width="688" height="70" viewBox="0 0 688 70" role="img" aria-label="console2svg output">
 <style>
 .c2.c { font-family: "JetBrains Mono","Cascadia Mono","Segoe UI Mono","Noto Sans Mono","SFMono-Regular",Menlo,Consolas,"DejaVu Sans Mono","Liberation Mono",monospace; font-size: 14px; }
 .c2 text { dominant-baseline: alphabetic; }
 .c2 .q { shape-rendering: crispEdges; }
 .c2 .w { white-space: pre; }
 .c2 .aa{fill:#d4d4d4}
-.c2 .ab{fill:#d4d4d4;text-decoration:underline}
-.c2 .ac{fill:#3b8eea}
-.c2 .ad{fill:#23d18b}
-.c2 .ae{fill:#FFFF13;font-weight:bold}
-.c2 .af{fill:#FF5B5B;font-weight:bold}
-.c2 .ag{fill:#bc3fbc}
-.c2 .ah{fill:#3b8eea;font-style:italic}
-.c2 .ai{fill:#23d18b;font-style:italic}
-</style><rect width="696.4" height="376" fill="#1e1e1e"/>
-<g class="c2 c"><rect x="8" y="8" width="680.4" height="18" fill="#1e1e1e"/>
+.c2 .ab{fill:#FF5B5B;font-weight:bold}
+.c2 .ac{fill:#23d18b;font-style:italic}
+</style><rect width="688" height="70" fill="#1e1e1e"/>
+<g class="c2 c"><rect x="8" y="8" width="672" height="18" fill="#1e1e1e"/>
 <text class="aa" x="8" y="22">$ dart example/bin/color_example.dart</text></g>
 <g class="c2 c" transform="translate(8 26)">
-<rect width="680.4" height="342" fill="#1e1e1e"/>
-<text class="ab w" y="32" textLength="109.2">Style string:</text>
-<text class="ac" y="50" textLength="75.6">blueberry</text>
-<text class="aa" x="84" y="50" textLength="25.2">and</text>
-<text class="ad w" x="117.6" y="50" textLength="92.4">green apple</text>
-<text class="ab w" y="86" textLength="436.8">Replace first Ansi modifier: EditMethod.replaceFirst</text>
-<text class="ae" y="104" textLength="75.6">blueberry</text>
-<text class="aa" x="84" y="104" textLength="25.2">and</text>
-<text class="ad w" x="117.6" y="104" textLength="92.4">green apple</text>
-<text class="ab w" y="140" textLength="411.6">Replace all Ansi modifiers: EditMethod.replaceAll</text>
-<text class="af" y="158" textLength="75.6">blueberry</text>
-<text class="aa" x="84" y="158" textLength="25.2">and</text>
-<text class="af w" x="117.6" y="158" textLength="92.4">green apple</text>
-<text class="ab w" y="194" textLength="621.6">Clear previous modifiers and style entire string: EditMethod.clearExisting</text>
-<text class="ag w" y="212" textLength="210">blueberry and green apple</text>
-<text class="ab w" y="248" textLength="420">Amend existing modifiers: EditMethod.addToExisting</text>
-<text class="ah" y="266" textLength="75.6">blueberry</text>
-<text class="aa" x="84" y="266" textLength="25.2">and</text>
-<text class="ai w" x="117.6" y="266" textLength="92.4">green apple</text>
-<text class="ab w" y="302" textLength="319.2">Strip all Ansi modifiers: clearStyle()</text>
-<text class="aa w" y="320" textLength="210">blueberry and green apple</text>
+<rect width="672" height="36" fill="#1e1e1e"/>
+<text class="aa" y="14" textLength="25.2">The</text>
+<text class="ab" x="33.6" y="14" textLength="25.2">red</text>
+<text class="aa w" x="67.2" y="14" textLength="151.2">fox jumps over the</text>
+<text class="ac" x="226.8" y="14" textLength="42">green</text>
+<text class="aa" x="277.2" y="14" textLength="42">fence</text>
 </g>
 </svg>
