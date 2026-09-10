@@ -42,6 +42,7 @@ void main() {
     });
     test('bareCode', () {
       expect((Ansi.bold + Ansi.italic).bareCode, '1;3');
+      expect(Ansi.cursorToPosition(row: 5, column: 7).bareCode, '5;7H');
     });
   });
 }
