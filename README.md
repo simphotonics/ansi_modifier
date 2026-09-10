@@ -3,9 +3,8 @@
 
 ## Introduction
 
-The class [`Ansi`][Ansi] provides ANSI escape codes which can be used to
-style and animate console output, and to change to current cursor position.
-
+The extension type [`Ansi`][Ansi] provides ANSI escape codes and helper functions
+which can be used to modify the font style of console output.
 
 ## Usage
 
@@ -15,11 +14,24 @@ in your `pubspec.yaml` file.
 
 ### 1. Changing the Font Style and Colour of Console Output
 
-Use the String extension function [`style`][style] to *add* new modifiers or
-to *replace* existing ones.
+Ansi escape codes for changing the colour and font style are of
+type [`FontModifier`][FontModifier]. They are available as
+constant static values of their supertype [`Ansi`][Ansi]:
+```Dart
+final s = 'The ${Ansi.red}fox${Ansi.reset} jumps over the
+  ${Ansi.green}fence${Ansi.reset};
+```
+It is advisable to terminate styled strings with an Ansi code that
+resets the font style to the default style.
 
-Use the function [`clearStyle`][clearStyle] to *remove*
-all Ansi modifier from a string.
+To make this easier, the package provides the String extension function
+[`style`][style] to *add* new modifiers or
+to *replace* existing ones. Using the function [`style][style] has the
+additional benefit of being able to globally disable the output of font
+modifying Ansi escape codes ( see section (#tips-and-tricks)).
+
+The function [`clearStyle`][clearStyle] can be used *remove*
+all Ansi escape codes of type [`FontModifier][FontModifier] from a string.
 
 ```Dart
 
@@ -69,7 +81,6 @@ void main(List<String> args) {
     ),
   );
   print(example.style(Ansi.italic, editMethod: EditMethod.addToExisting));
-  print(example.style(Ansi.underline, editMethod: EditMethod.add));
 
   // Strip all Ansi modifiers.
   print('\nStrip all Ansi modifiers: clearStyle()'.style(Ansi.underline));
@@ -78,19 +89,20 @@ void main(List<String> args) {
 ```
 
 Runnig the program above produces the following output:
-![Console Output](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/console_output.gif)
+![Console Output](https://github.com/simphotonics/ansi_modifier/raw/main/images/console_output.svg)
 
 
 ### 2. Moving the Current Cursor Position
 
-Ansi codes for moving the current cursor position can be constructed using the
-constructors `CursorModifier.up`,
-`CursorModifier.down`,
-`CursorModifier.forward`,
-`CursorModifier.back`,
-`CursorModifier.nextLine`,
-`CursorModifier.previousLine`, and
-`CursorModifier.toColumn`, and `CursorModifier.toPosition`.
+Ansi escape codes for moving the current cursor position can be constructed
+using the constructors
+`Ansi.cursorUp`,
+`Ansi.cursorDown`,
+`Ansi.cursorForward`,
+`Ansi.cursorBack`,
+`Ansi.cursorNextLine`,
+`Ansi.cursorPreviousLine`, and
+`Ansi.cursorToColumn`, and `Ansi.cursorToPosition`.
 
 The example below shows how to change the cursor position
 using Dart's `stdout` function `write` in order to display a
@@ -127,7 +139,7 @@ void main(List<String> args) async {
 }
 ```
 The program above produces the following console output:
-![Progress Indicator](https://raw.githubusercontent.com/simphotonics/ansi_modifier/main/images/progress_indicator.gif)
+![Progress Indicator](https://github.com/simphotonics/ansi_modifier/raw/main/images/progress_indicator.svg)
 
 
 ## Tips and Tricks
@@ -153,6 +165,8 @@ at the [issue tracker][tracker].
 [ansi_modifier]: https://pub.dev/packages/ansi_modifier
 
 [Ansi]: https://pub.dev/packages/ansi_modifier/latest/ansi_modifier/Ansi-class.html
+
+[FontModifier]: https://pub.dev/packages/ansi_modifier/latest/ansi_modifier/FontModifier-class.html
 
 [style]: https://pub.dev/documentation/ansi_modifier/latest/ansi_modifier/AnsiModifier/style.html
 
