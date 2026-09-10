@@ -3,9 +3,10 @@
 
 ## Introduction
 
-The extension type [`Ansi`][Ansi] provides ANSI escape codes and helper functions
-which can be used to modify the font style of console output and to move the
-cursor.
+
+Ansi escape codes are used to modify the font style of console output
+and to move the terminal cursor (which is useful e.g. when displaying
+progress indicators).
 
 ## Usage
 
@@ -22,12 +23,16 @@ final s = 'The ' + 'red'.style(Ansi.red) + ' fox jumps '
   'over the ' + 'green'.style(Ansi.green + Ansi.italic) + ' fence';
 print(s);
 ```
+
+Ansi escape codes are made available as static const variable of the
+extension type [`Ansi`][Ansi].
 On an Ansi compliant terminal, the code lines above produce the
 following console output:
 ![Console Output](https://github.com/simphotonics/ansi_modifier/raw/main/images/console_output.svg)
 
 The method [`style`][style] supports different
-edit modes that can be used to modify existing Ansi escape codes.
+edit modes that can be used to easily
+modify existing Ansi escape codes.
 
 <details> <summary> Click to show source code. </summary>
 

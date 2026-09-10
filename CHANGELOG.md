@@ -1,9 +1,9 @@
 
 ## 1.1.0
 * The class `Ansi` is now an extension type on `String`.
-* The classes `FontModifier` and `CursorModifier` are subclasses of `Ansi`.
+* The class `FontModifier` is a subclass of `Ansi`.
 * The extension method `style()` now supports the edit methods:
-`EditMethod.add`,
+`EditMethod.add` (default),
 `EditMethod.addToExisting`,
 `EditMethod.clearExisting`,
 `EditMethod.replaceFirst`,

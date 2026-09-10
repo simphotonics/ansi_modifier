@@ -1,7 +1,7 @@
 name: ansi_modifier
 
 description: Style and animate terminal output by adding,
-             replacing, and clearing ANSI escape codes.
+             replacing, modifying, and clearing ANSI escape codes.
 
 version: 1.1.0
 
@@ -9,7 +9,7 @@ homepage: https://github.com/simphotonics/ansi_modifier
 
 topics:
   - ansi
-  - terminal
+  - escape-code
   - console
   - color
   - cursor-position
