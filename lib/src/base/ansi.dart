@@ -123,35 +123,35 @@ extension type const Ansi._(String code) {
   /// To move several characters up provide the input parameter [n].
   const new cursorDown([int n = 1]) : code = Ansi.escLeft + '${n}B';
 
-  /// Creates an Ansi escape code to move the
+  /// Creates an Ansi escape code that moves the
   /// cursor forward.
   ///
   /// To move several characters forward provide the input parameter [n].
   const new cursorForward([int n = 1]) : code = Ansi.escLeft + '${n}C';
 
-  /// Creates an Ansi escape code to move the
+  /// Creates an Ansi escape code that moves the
   /// cursor back.
   ///
   /// To move several character back provide the input parameter [n].
   const new cursorBack([int n = 1]) : code = Ansi.escLeft + '${n}D';
 
-  /// Creates an Ansi escape code to move the
+  /// Creates an Ansi escape code that moves the
   /// cursor to the next line.
   ///
   /// To move several lines provide the input parameter [n].
   const new cursorNextLine([int n = 1]) : code = Ansi.escLeft + '${n}E';
 
-  /// Creates an Ansi escape code to move the
+  /// Creates an Ansi escape code that moves the
   /// cursor to the beginning of the previous line.
   ///
   /// To move several lines provide the input parameter `n`.
   const new cursorPreviousLine([int n = 1]) : code = Ansi.escLeft + '${n}F';
 
-  /// Creates an Ansi escape code to move the
-  /// cursor to the column [n].
+  /// Creates an Ansi escape code that moves
+  /// the cursor to the column [n].
   const new cursorToColumn(int n) : code = Ansi.escLeft + '${n}G';
 
-  /// Creates an Ansi escape code to move the cursor to a position
+  /// Creates an Ansi escape code that moves the cursor to a position
   /// specified by [row] and [column].
   const new cursorToPosition({required int row, required int column})
     : code = Ansi.escLeft + '$row;${column}H';
