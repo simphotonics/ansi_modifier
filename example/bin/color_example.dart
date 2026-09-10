@@ -44,7 +44,6 @@ void main(List<String> args) {
     ),
   );
   print(example.style(Ansi.italic, editMethod: EditMethod.addToExisting));
-  print(example.style(Ansi.underline, editMethod: EditMethod.add));
 
   // Strip all Ansi modifiers.
   print('\nStrip all Ansi modifiers: clearStyle()'.style(Ansi.underline));
