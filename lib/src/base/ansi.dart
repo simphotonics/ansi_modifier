@@ -102,14 +102,62 @@ extension type const Ansi._(String code) {
   /// Ansi color modifier: white foreground: 97
   static const whiteBold = FontModifier(97);
 
-  /// Ansi escap sequence left.
+  /// Ansi escape sequence left.
   static const escLeft = '\u001B[';
+
+  /// Length of the left Ansi escape sequence.
+  static const escLeftLength = escLeft.length;
 
   /// Print this string to visualize the Ansi modifier codes.
   String get debug => Error.safeToString(code);
 
-  /// Set [status] to `false` to globally disable Ansi styling.
-  /// (The default value is `true`.)
+  /// Creates an Ansi escape code that moves the
+  /// cursor up.
+  ///
+  /// To move several characters up provide the input parameter [n].
+  const new cursorUp([int n = 1]) : code = Ansi.escLeft + '${n}A';
+
+  /// Creates an Ansi escape code that moves the
+  /// cursor down.
+  ///
+  /// To move several characters up provide the input parameter [n].
+  const new cursorDown([int n = 1]) : code = Ansi.escLeft + '${n}B';
+
+  /// Creates an Ansi escape code to move the
+  /// cursor forward.
+  ///
+  /// To move several characters forward provide the input parameter [n].
+  const new cursorForward([int n = 1]) : code = Ansi.escLeft + '${n}C';
+
+  /// Creates an Ansi escape code to move the
+  /// cursor back.
+  ///
+  /// To move several character back provide the input parameter [n].
+  const new cursorBack([int n = 1]) : code = Ansi.escLeft + '${n}D';
+
+  /// Creates an Ansi escape code to move the
+  /// cursor to the next line.
+  ///
+  /// To move several lines provide the input parameter [n].
+  const new cursorNextLine([int n = 1]) : code = Ansi.escLeft + '${n}E';
+
+  /// Creates an Ansi escape code to move the
+  /// cursor to the beginning of the previous line.
+  ///
+  /// To move several lines provide the input parameter `n`.
+  const new cursorPreviousLine([int n = 1]) : code = Ansi.escLeft + '${n}F';
+
+  /// Creates an Ansi escape code to move the
+  /// cursor to the column [n].
+  const new cursorToColumn(int n) : code = Ansi.escLeft + '${n}G';
+
+  /// Creates an Ansi escape code to move the cursor to a position
+  /// specified by [row] and [column].
+  const new cursorToPosition({required int row, required int column})
+    : code = Ansi.escLeft + '$row;${column}H';
+
+  /// Set [status] to `false` to globally disable
+  /// styling console output with [AnsiFontStyle.style].
   ///
   /// Ansi styling may also be disabled from the command line:
   /// ```Console
@@ -118,6 +166,9 @@ extension type const Ansi._(String code) {
   static AnsiOutput status = bool.fromEnvironment('isMonochrome')
       ? AnsiOutput.disabled
       : AnsiOutput.enabled;
+
+  /// Returns the escape code without [Ansi.escLeft].
+  String get bareCode => code.substring(escLeftLength);
 }
 
 /// A [String] representing an Ansi compliant font modifier.
@@ -146,59 +197,10 @@ extension type const FontModifier._(String code) implements Ansi {
 
   /// Returns the bare modifier code without the left and right
   /// escape characters.
-  String get bareCode => code.substring(2, code.indexOf(escRight));
+  String get bareCode => code.substring(2, code.length - 1);
 }
 
-/// A [String] representing an Ansi compliant cursor modifier.
-extension type const CursorModifier._(String code) implements Ansi {
-  /// Write Ansi.cursorUp to stdout to move the
-  /// cursor up.
-  ///
-  /// To move several characters up provide the input parameter `n`.
-  const new up([int n = 1]) : code = Ansi.escLeft + '${n}A';
-
-  /// Write Ansi.cursorDown to stdout to move the
-  /// cursor down.
-  ///
-  /// To move several characters down provide the input parameter `n`.
-  const new down([int n = 1]) : code = Ansi.escLeft + '${n}B';
-
-  /// Write Ansi.cursorForward to stdout to move the
-  /// cursor forward.
-  ///
-  /// To move several characters forward provide the input parameter `n`.
-  const new forward([int n = 1]) : code = Ansi.escLeft + '${n}C';
-
-  /// Write Ansi.cursorBack to stdout to move the
-  /// cursor back.
-  ///
-  /// To move several character back provide the input parameter `n`.
-  const new back([int n = 1]) : code = Ansi.escLeft + '${n}D';
-
-  /// Write Ansi.cursorNextLine to stdout to move the
-  /// cursor to the next line.
-  ///
-  /// To move several lines provide the input parameter `n`.
-  const new nextLine([int n = 1]) : code = Ansi.escLeft + '${n}E';
-
-  /// Write `Ansi.cursorPreviousLine()` to stdout to move the
-  /// cursor to the beginning of the previous line.
-  ///
-  /// To move several lines provide the input parameter `n`.
-  const new previousLine([int n = 1]) : code = Ansi.escLeft + '${n}F';
-
-  /// Write Ansi.cursorToColumn to stdout to move the
-  /// cursor to the column [n].
-  const new toColumn(int n) : code = Ansi.escLeft + '${n}G';
-
-  const new toPosition({required int row, required int column})
-    : code = Ansi.escLeft + '$row;${column}H';
-
-  /// Returns the bare code without the left escape symbol.
-  String get bareCode => code.substring(2);
-}
-
-extension AnsiModifier on String {
+extension AnsiFontStyle on String {
   /// Applies an Ansi compliant modifier to a string and returns it.
   /// * Returns the string unmodified if [Ansi.status] is set to
   ///  [AnsiOutput.disabled].
@@ -254,17 +256,14 @@ extension AnsiModifier on String {
     return b.toString();
   }
 
-  /// Regular expression matching a [FontModifier] modifier.
-  /// ```
-  /// // Usage
-  /// final matches = matchAnsi.match(this);
-  /// final bareCode = match[]
-  /// ```
+  /// Regular expression matching a [FontModifier] modifier
+  /// except [Ansi.reset].
   static final matchNonReset = RegExp(
     r'\u001B\[(?!0m)((?:\d+;)*\d+)m',
     unicode: true,
   );
 
+  /// Regular expression matching a [FontModifier] modifier.
   static final matchAll = RegExp(r'\u001B\[((?:\d+;)*\d+)m', unicode: true);
 
   /// Removes all Ansi modifiers and returns the resulting string.
