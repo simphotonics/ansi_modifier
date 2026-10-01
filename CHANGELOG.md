@@ -1,4 +1,9 @@
 
+## 1.1.1
+* Updated the documentation of the static variable `Ansi.status`.
+* Amended docs.
+* Fixed escape code for setting the default background color. 
+
 ## 1.1.0
 * The class `Ansi` is now an extension type on `String`.
 * The class `FontModifier` is a subclass of `Ansi`.

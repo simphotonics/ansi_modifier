@@ -167,13 +167,13 @@ all Ansi escape codes of type [`FontModifier`][FontModifier] from a string.
 * The [`String`][String] extension method [`style`][style] supports different
 replacement modes that can be adjusted using the optional argument `editMethod`.
 * Ansi codes can be combined using the addition operator `Ansi.red + Ansi.bold`.
-* Using the function [`style][style] to add Ansi codes provides the option of
+* Using the function [`style`][style] to add Ansi codes provides the option of
   globally disabling Ansi output by setting:
   ```Dart
   Ansi.status = AnsiOutput.disabled;
   ```
-  When running a Dart script the same effect can be achieved by using the
-  the option:
+  When running a Dart script the same effect can be achieved by setting the
+  environment variable `isMonoChrome` to `true`:
   ```Console
   $ dart --define=isMonochrome=true example/bin/color_example.dart
   ```

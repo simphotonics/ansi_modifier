@@ -51,7 +51,7 @@ extension type const Ansi._(String code) {
   /// Ansi color modifier: grey foreground: 37
   static const grey = FontModifier(37);
 
-  /// Ansi color modifier: default foreground colour: 39.
+  /// Ansi color modifier: default foreground color: 39.
   static const defaultForeground = FontModifier(39);
 
   /// Ansi color modifier: black background: 40.
@@ -78,14 +78,17 @@ extension type const Ansi._(String code) {
   /// Ansi color modifier: white background: 47.
   static const whiteBackground = FontModifier(47);
 
-  /// Ansi color modifier: default background colour: 39.
-  static const defaultBackground = FontModifier(39);
+  /// Ansi color modifier: default background color: 49.
+  static const defaultBackground = FontModifier(49);
 
-  /// Ansi color modifier: bright red foreground: 91.
-  static const redBright = FontModifier(91);
+  /// Ansi style modifier: overlined: 53.
+  static const overlined = FontModifier(53);
 
   /// Ansi color modifier: bright grey foreground: 90.
   static const greyLight = FontModifier(90);
+
+  /// Ansi color modifier: bright red foreground: 91.
+  static const redBright = FontModifier(91);
 
   /// Ansi color modifier: bright green foreground: 92.
   static const greenBright = FontModifier(92);
@@ -156,10 +159,11 @@ extension type const Ansi._(String code) {
   const new cursorToPosition({required int row, required int column})
     : code = Ansi.escLeft + '$row;${column}H';
 
-  /// Set [status] to `false` to globally disable
-  /// styling console output with [AnsiFontStyle.style].
+  /// Enables/disables Ansi output for strings styled with
+  /// the [String] extension method [AnsiFontStyle.style].
   ///
-  /// Ansi styling may also be disabled from the command line:
+  /// Ansi styling may also be disabled from the command line by setting
+  /// the environment variable `isMonoChrome`.
   /// ```Console
   /// $ dart <executable> --define=isMonochrome=true
   /// ```

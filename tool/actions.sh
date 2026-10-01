@@ -1,6 +1,6 @@
 #!/bin/bash --
 
-# Defining colours
+# Defining colors
 BLUE='\033[1;34m'
 GREEN='\033[1;32m'
 CYAN='\033[1;36m'
