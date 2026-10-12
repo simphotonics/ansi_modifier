@@ -2,7 +2,10 @@ import '../enum/ansi_output.dart';
 import '../enum/edit_method.dart';
 
 /// A String representing an Ansi compliant modifier.
-extension type const Ansi._(String code) {
+extension type const Ansi._(
+  /// The Ansi escape code, starting with [Ansi.escLeft].
+  String code,
+) {
   /// Ansi modifier: Reset to default: 0.
   static const reset = FontModifier(0);
 
@@ -176,7 +179,11 @@ extension type const Ansi._(String code) {
 }
 
 /// A [String] representing an Ansi compliant font modifier.
-extension type const FontModifier._(String code) implements Ansi {
+extension type const FontModifier._(
+  /// The Ansi escape code starting with [Ansi.escLeft], followed by one or
+  /// more integers separated by [separator], and ending in [escRight].
+  String code,
+) implements Ansi {
   /// Ansi escape symbol right.
   static const escRight = 'm';
 
@@ -260,14 +267,17 @@ extension AnsiFontStyle on String {
     return b.toString();
   }
 
-  /// Regular expression matching a [FontModifier] modifier
+  /// Regular expression matching an instance of [FontModifier]
   /// except [Ansi.reset].
+  /// * The first match-group contains [FontModifier.code].
+  /// * The second match-group contains [FontModifier.bareCode].
   static final matchNonReset = RegExp(
     r'\u001B\[(?!0m)((?:\d+;)*\d+)m',
     unicode: true,
   );
 
-  /// Regular expression matching a [FontModifier] modifier.
+  /// Regular expression matching a [FontModifier.code] except
+  /// [Ansi.reset].
   static final matchAll = RegExp(r'\u001B\[((?:\d+;)*\d+)m', unicode: true);
 
   /// Removes all Ansi modifiers and returns the resulting string.
